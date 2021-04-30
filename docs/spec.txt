@@ -42,12 +42,23 @@ Notation
 The syntax is specified using Extended Backus-Naur Form (EBNF):
 
 
+Production  = production_name "=" [ Expression ] "." .
+Expression  = Alternative { "|" Alternative } .
+Alternative = Term { Term } .
+Term        = production_name | token [ "…" token ] | Group | Option | Repetition .
+Group       = "(" Expression ")" .
+Option      = "[" Expression "]" .
+Repetition  = "{" Expression "}" .
 
 
 
 Productions are expressions constructed from terms and the following
 operators, in increasing precedence:
 
+|   alternation
+()  grouping
+[]  option (0 or 1 times)
+{}  repetition (0 to n times)
 
 
 
@@ -228,6 +239,11 @@ Keywords
 
 The following keywords are reserved and may not be used as identifiers.
 
+break        default      func         interface    select
+case         defer        go           map          struct
+chan         else         goto         package      switch
+const        fallthrough  if           range        type
+continue     for          import       return       var
 
 
 Operators and punctuation
@@ -236,6 +252,12 @@ Operators and punctuation
 The following character sequences represent operators
 (including assignment operators) and punctuation:
 
++    &     +=    &=     &&    ==    !=    (    )
+-    |     -=    |=     ||    <     <=    [    ]
+*    ^     *=    ^=     <-    >     >=    {    }
+/    <<    /=    <<=    ++    =     :=    ,    ;
+%    >>    %=    >>=    --    !     ...   .    :
+     &^          &^=
 
 
 Integer literals
@@ -368,6 +390,16 @@ in particular those above  and surrogate halves.
 After a backslash, certain single-character escapes represent special values:
 
 
+\a   U+0007 alert or bell
+\b   U+0008 backspace
+\f   U+000C form feed
+\n   U+000A line feed or newline
+\r   U+000D carriage return
+\t   U+0009 horizontal tab
+\v   U+000b vertical tab
+\\   U+005c backslash
+\'   U+0027 single quote  (valid escape only within rune literals)
+\"   U+0022 double quote  (valid escape only within string literals)
 
 
 
@@ -670,6 +702,24 @@ A numeric type represents sets of integer or floating-point values.
 The predeclared architecture-independent numeric types are:
 
 
+uint8       the set of all unsigned  8-bit integers (0 to 255)
+uint16      the set of all unsigned 16-bit integers (0 to 65535)
+uint32      the set of all unsigned 32-bit integers (0 to 4294967295)
+uint64      the set of all unsigned 64-bit integers (0 to 18446744073709551615)
+
+int8        the set of all signed  8-bit integers (-128 to 127)
+int16       the set of all signed 16-bit integers (-32768 to 32767)
+int32       the set of all signed 32-bit integers (-2147483648 to 2147483647)
+int64       the set of all signed 64-bit integers (-9223372036854775808 to 9223372036854775807)
+
+float32     the set of all IEEE-754 32-bit floating-point numbers
+float64     the set of all IEEE-754 64-bit floating-point numbers
+
+complex64   the set of all complex numbers with float32 real and imaginary parts
+complex128  the set of all complex numbers with float64 real and imaginary parts
+
+byte        alias for uint8
+rune        alias for int32
 
 
 
@@ -681,6 +731,9 @@ two's complement arithmetic.
 There is also a set of predeclared numeric types with implementation-specific sizes:
 
 
+uint     either 32 or 64 bits
+int      same size as uint
+uintptr  an unsigned integer large enough to store the uninterpreted bits of a pointer value
 
 
 
@@ -1416,6 +1469,20 @@ Predeclared identifiers
 The following identifiers are implicitly declared in the
 universe block:
 
+Types:
+	bool byte complex64 complex128 error float32 float64
+	int int8 int16 int32 int64 rune string
+	uint uint8 uint16 uint32 uint64 uintptr
+
+Constants:
+	true false iota
+
+Zero value:
+	nil
+
+Functions:
+	append cap close complex copy delete imag len
+	make new panic print println real recover
 
 
 
@@ -1622,6 +1689,7 @@ It is shorthand for a regular variable declaration
 with initializer expressions but no types:
 
 
+"var" IdentifierList = ExpressionList .
 
 
 
@@ -2662,6 +2730,12 @@ operators, comparison operators,  (logical AND),
 and finally  (logical OR):
 
 
+Precedence    Operator
+    5             *  /  %  <<  >>  &  &^
+    4             +  -  |  ^
+    3             ==  !=  <  <=  >  >=
+    2             &&
+    1             ||
 
 
 
@@ -2681,6 +2755,19 @@ floating-point, and complex types;  also applies to strings.
 The bitwise logical and shift operators apply to integers only.
 
 
++    sum                    integers, floats, complex values, strings
+-    difference             integers, floats, complex values
+*    product                integers, floats, complex values
+/    quotient               integers, floats, complex values
+%    remainder              integers
+
+&    bitwise AND            integers
+|    bitwise OR             integers
+^    bitwise XOR            integers
+&^   bit clear (AND NOT)    integers
+
+<<   left shift             integer << unsigned integer
+>>   right shift            integer >> unsigned integer
 
 
 
@@ -2740,6 +2827,10 @@ For integer operands, the unary operators
 follows:
 
 
++x                          is 0 + x
+-x    negation              is 0 - x
+^x    bitwise complement    is m ^ x  with m = "all bits set to 1" for unsigned x
+                                      and  m = -1 for signed x
 
 
 
@@ -2811,6 +2902,12 @@ Comparison operators
 Comparison operators compare two operands and yield an untyped boolean value.
 
 
+==    equal
+!=    not equal
+<     less
+<=    less or equal
+>     greater
+>=    greater or equal
 
 
 
@@ -2919,6 +3016,9 @@ and yield a result of the same type as the operands.
 The right operand is evaluated conditionally.
 
 
+&&    conditional AND    p && q  is  "if p then q else false"
+||    conditional OR     p || q  is  "if p then true else q"
+!     NOT                !p      is  "not p"
 
 
 
@@ -3465,6 +3565,9 @@ The following assignment statements are semantically
 equivalent:
 
 
+IncDec statement    Assignment
+x++                 x += 1
+x--                 x -= 1
 
 
 
@@ -3814,6 +3917,12 @@ For each iteration, iteration values are produced as follows
 if the respective iteration variables are present:
 
 
+Range expression                          1st value          2nd value
+
+array or slice  a  [n]E, *[n]E, or []E    index    i  int    a[i]       E
+string          s  string type            index    i  int    see below  rune
+map             m  map[K]V                key      k  K      m[k]       V
+channel         c  chan E, <-chan E       element  e  E
 
 
 
@@ -4210,6 +4319,17 @@ of various types and return a result of type .
 The implementation guarantees that the result always fits into an .
 
 
+Call      Argument type    Result
+
+len(s)    string type      string length in bytes
+          [n]T, *[n]T      array length (== n)
+          []T              slice length
+          map[K]T          map length (number of defined keys)
+          chan T           number of elements queued in channel buffer
+
+cap(s)    [n]T, *[n]T      array length (== n)
+          []T              slice capacity
+          chan T           channel buffer capacity
 
 
 
@@ -4249,6 +4369,7 @@ The variable is initialized as described in the section on
 initial values.
 
 
+new(T)
 
 
 
@@ -4275,6 +4396,16 @@ The memory is initialized as described in the section on
 initial values.
 
 
+Call             Type T     Result
+
+make(T, n)       slice      slice of type T with length n and capacity n
+make(T, n, m)    slice      slice of type T with length n and capacity m
+
+make(T)          map        map of type T
+make(T, n)       map        map of type T with initial space for approximately n elements
+
+make(T)          channel    unbuffered channel of type T
+make(T, n)       channel    buffered channel of type T, buffer size n
 
 
 
@@ -4322,6 +4453,7 @@ string type followed by . This form appends the
 bytes of the string.
 
 
+append(s S, x ...T) S  // T is the element type of S
 
 
 
@@ -4346,6 +4478,8 @@ to type  with a source argument of a string type.
 This form copies the bytes from the string into the byte slice.
 
 
+copy(dst, src []T) int
+copy(dst []byte, src string) int
 
 
 
@@ -4364,6 +4498,7 @@ type of  must be assignable
 to the key type of .
 
 
+delete(m, k)  // remove element m[k] from map m
 
 
 
@@ -4382,6 +4517,9 @@ value from a floating-point real and imaginary part, while
 extract the real and imaginary parts of a complex value.
 
 
+complex(realPart, imaginaryPart floatT) complexT
+real(complexT) floatT
+imag(complexT) floatT
 
 
 
@@ -4427,6 +4565,8 @@ assist in reporting and handling run-time panics
 and program-defined error conditions.
 
 
+func panic(interface{})
+func recover() interface{}
 
 
 
@@ -4492,6 +4632,10 @@ bootstrapping. These functions are documented for completeness but are not
 guaranteed to stay in the language. They do not return a result.
 
 
+Function   Behavior
+
+print      prints all arguments; formatting of arguments is implementation-specific
+println    like print but prints spaces between arguments and a newline at the end
 
 
 
@@ -4595,6 +4739,11 @@ that import the package after the
 various types of import declaration.
 
 
+Import declaration          Local name of Sin
+
+import   "lib/math"         math.Sin
+import m "lib/math"         m.Sin
+import . "lib/math"         Sin
 
 
 
@@ -4880,6 +5029,14 @@ must be vetted manually for type safety and may not be portable.
 The package provides the following interface:
 
 
+package unsafe
+
+type ArbitraryType int  // shorthand for an arbitrary Go type; it is not a real type
+type Pointer *ArbitraryType
+
+func Alignof(variable ArbitraryType) uintptr
+func Offsetof(selector ArbitraryType) uintptr
+func Sizeof(variable ArbitraryType) uintptr
 
 
 
@@ -4930,6 +5087,13 @@ Size and alignment guarantees
 For the numeric types, the following sizes are guaranteed:
 
 
+type                                 size in bytes
+
+byte, uint8, int8                     1
+uint16, int16                         2
+uint32, int32, float32                4
+uint64, int64, float64, complex64     8
+complex128                           16
 
 
 
