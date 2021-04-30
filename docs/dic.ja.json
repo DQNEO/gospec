@@ -1,3 +1,4 @@
+var dic = 
 {
   "EN": "JA",
   "FALSE": "",
