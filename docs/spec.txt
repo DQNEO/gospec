@@ -3,13 +3,10 @@
 
 
   
-    The Go Programming Language Specification
-    
+
+
+
   
-
-
-
-  Version of Jan 14, 2020
 
 
 
