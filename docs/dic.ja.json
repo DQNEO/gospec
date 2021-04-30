@@ -3,7 +3,7 @@ var dic =
   "EN": "JA",
   "FALSE": "",
   "TRUE": "",
-  "absent": "有る、存在する",
+  "absent": "無い、存在しない",
   "accent": "",
   "accented": "",
   "accept": "受け付ける、受理する",
