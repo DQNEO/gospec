@@ -1,4 +1,4 @@
-# Analyzed data of Go Language Specification
+# Analyzed data and application examples of Go Language Specification
 
 This repository contains analyzed data of Go Language Specification.
 
