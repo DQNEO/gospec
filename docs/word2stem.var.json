@@ -1,3 +1,4 @@
+var word2stem = 
 {
   "absent": "absent",
   "accent": "accent",
