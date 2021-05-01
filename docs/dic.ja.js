@@ -534,7 +534,7 @@ var dic =
   "kind": "",
   "known": "",
   "label": "",
-  "labeled": "",
+  "labeled": "ラベル付き",
   "labels": "",
   "language": "言語",
   "larg": "",
