@@ -51,7 +51,7 @@ function processNode(node) {
     span.className = "word";
     const tooltip = document.createElement("div");
     tooltip.textContent = meaning;
-    tooltip.className = "word-label";
+    tooltip.className = "word-translation";
     span.appendChild(tooltip);
   });
   if (fragment.children.length > 0 && fragment.lastChild.textContent === " ") {
