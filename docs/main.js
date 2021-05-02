@@ -1,7 +1,7 @@
 main();
 
 function main() {
-  const nodesToIgnore = new Set(["H2", "H3", "PRE"]);
+  const nodesToIgnore = new Set(["PRE"]);
   const textNodes = collectTextNodes();
   for (const node of textNodes) {
     if (nodesToIgnore.has(node.parentNode.nodeName)) {
@@ -57,5 +57,13 @@ function processNode(node) {
   if (fragment.children.length > 0 && fragment.lastChild.textContent === " ") {
     fragment.removeChild(fragment.lastChild);
   }
-  node.parentNode.replaceChild(fragment, node);
+  // workaround to avoid making h2 > pre and h3 > pre
+  if (node.parentNode.nodeName == "H2" || node.parentNode.nodeName == "H3") {
+    // wrap by div
+    const div = document.createElement("div");
+    div.appendChild(fragment);
+    node.parentNode.replaceChild(div, node);
+  } else {
+    node.parentNode.replaceChild(fragment, node);
+  }
 }
