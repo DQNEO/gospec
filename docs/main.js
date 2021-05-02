@@ -1,25 +1,25 @@
 main();
 
 function main() {
-  const skippedNodes = new Set(["h2", "h3", "pre"]);
-  const textNodes = textNodesUnder();
+  const nodesToIgnore = new Set(["h2", "h3", "pre"]);
+  const textNodes = collectTextNodes();
   for (const node of textNodes) {
-    if (skippedNodes.has(node.parentNode.localName)) {
+    if (nodesToIgnore.has(node.parentNode.localName)) {
       continue;
     }
     processNode(node);
   }
 }
 
-function textNodesUnder() {
-  const el = document.querySelector(".container")
-  const a = [];
+function collectTextNodes() {
+  const container = document.querySelector(".container")
+  const r = [];
   let n;
-  const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-  while ((n = walk.nextNode())) {
-    a.push(n);
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+  while ((n = walker.nextNode())) {
+    r.push(n);
   }
-  return a;
+  return r;
 }
 
 function processNode(node) {
