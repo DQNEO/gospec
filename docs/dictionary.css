@@ -21,7 +21,9 @@
   font-style: normal;
   word-break: keep-all;
   white-space: nowrap;
+  box-shadow: 1px 1px #ccc
 }
+
 .word:hover .word-translation {
   display: block;
 }
