@@ -22,6 +22,18 @@ function collectTextNodes() {
   return r;
 }
 
+function lookupWord(word) {
+    const stem = word2stem[word.toLowerCase()];
+    if (!stem) {
+      return "";
+    }
+    const meaning = dic[stem];
+    if (!meaning) {
+      return "";
+    }
+    return meaning;
+}
+
 function processNode(node) {
   const fragment = document.createDocumentFragment();
   const words = node.textContent.split(/\s+/)
@@ -32,17 +44,10 @@ function processNode(node) {
     fragment.appendChild(document.createTextNode(" "));
 
     const trimmedWord = word.replace(/['",.:]/g, '');
-
-    const lword = trimmedWord.toLowerCase();
-    const stem = word2stem[lword];
-    if (!stem) {
-      return;
-    }
-    const meaning = dic[stem];
+    const meaning = lookupWord(trimmedWord);
     if (!meaning) {
       return;
     }
-
     span.className = "word";
     const label = document.createElement("div");
     label.textContent = meaning;
