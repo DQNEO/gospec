@@ -34,7 +34,6 @@ camelcase	nnp	b-gpe
 carriage	nnp	o
 cases	nns	o
 category	nnp	o
-channel	nnp	o
 channels	nnp	o
 characters	nnps	o
 close	nnp	o
@@ -74,22 +73,17 @@ expressionlist	nnp	o
 expressions	nns	o
 extended	jj	o
 fma	nnp	o
-field	nnp	b-person
 first	nnp	o
 floating-point	jj	o
 forclause	nnp	o
 form	nnp	o
 full	nnp	o
-function	nnp	b-person
 functions	nns	o
 further	jj	o
 general	jj	o
 general	nnp	o
 give	vb	o
 given	vbn	o
-go	nnp	b-gpe
-go	nnp	o
-goto	nnp	o
 graphic	nnp	b-gpe
 group	nnp	b-person
 handling	vbg	o
@@ -97,20 +91,15 @@ here	rb	o
 hexadecimal	nnp	o
 however	rb	o
 ieee	nnp	o
-ieee-754	jj	o
 identifierlist	nnp	o
 identifiers	nnps	o
 imaginary	nnp	o
 implementation	nnp	o
-import	nnp	b-person
 importpath	nnp	b-gpe
 importpaths	nnp	o
-incdec	nnp	b-gpe
-index	nnp	b-gpe
 initialization	nnp	o
 instead	rb	o
 integer	jjr	o
-interface	nnp	o
 interpreted	vbn	o
 introduction	nn	o
 iota	nnp	o
@@ -123,7 +112,6 @@ letter	nnp	o
 letters	nns	o
 lexical	jj	o
 line	nnp	o
-literal	jj	o
 literaltype	nnp	b-gpe
 ll	nnp	b-gpe
 lm	nnp	b-gpe
@@ -136,8 +124,6 @@ lt	nnp	b-gpe
 lu	nnp	o
 making	vbg	o
 manipulating	vbg	o
-map	nnp	o
-method	nnp	b-gpe
 more	rbr	o
 moreover	rb	o
 multiple	nnp	o
@@ -168,12 +154,10 @@ others	nns	o
 otherwise	rb	o
 otherwise	vb	o
 overflow	nnp	b-person
-package	vb	o
 packagename	nnp	b-gpe
 packages	nns	o
 parameter	nnp	b-person
 passing	vbg	o
-pointer	nnp	b-person
 pointers	nns	o
 precedence	nn	o
 predeclared	vbd	o
@@ -197,7 +181,6 @@ repetition	nnp	o
 represent	jj	o
 representability	nnp	o
 result	nnp	o
-return	nnp	o
 round	nnp	o
 rounding	vbg	o
 run-time	jj	o
@@ -218,20 +201,16 @@ similarly	rb	o
 simple	jj	o
 sin	nnp	o
 size	nnp	b-person
-slice	nnp	o
 source	nnp	b-gpe
 specific	jj	o
 specifically	rb	o
 standard	nnp	o
 statements	nns	o
-string	vbg	o
 strings	nns	o
 struct	nn	o
 structured	nnp	o
 such	jj	o
 suppose	vb	o
-switch	nnp	b-gpe
-switch	vb	o
 system	nn	o
 taking	vbg	o
 term	nnp	b-person
@@ -240,7 +219,6 @@ there	ex	o
 thus	nnp	o
 together	rb	o
 tokens	jj	b-gpe
-type	nnp	b-person
 typename	nn	o
 typename	nnp	b-gpe
 typespec	nnp	b-gpe
@@ -250,10 +228,7 @@ types	nns	o
 types	vbz	o
 utf-8	jj	o
 utf-8	nnp	b-gpe
-utf-8-encoded	jj	o
-utf-8-encoded	nnp	o
 unary	nnp	o
-unicode	nnp	b-gpe
 uniqueness	nnp	o
 untyped	jj	o
 values	nns	o
@@ -393,7 +368,6 @@ bit	nn	o
 bits	nns	o
 bitwise	nn	o
 blank	jj	o
-block	nn	o
 blocking	vbg	o
 blocks	nns	o
 blocks	vbz	o
@@ -419,8 +393,6 @@ buffer	nn	o
 buffered	vbd	o
 build	jj	o
 built-in	jj	o
-byte	nn	o
-byte	vbp	o
 byte-wise	nn	o
 bytes	nns	o
 calculated	vbn	o
@@ -439,7 +411,6 @@ cap	nn	o
 capacity	nn	o
 carriage	nn	o
 carried	vbn	o
-case	nn	o
 cases	nns	o
 categories	nns	o
 category	nn	o
@@ -450,8 +421,6 @@ certain	jj	o
 chan	vbp	o
 change	vbp	o
 changes	vbz	o
-channel	nn	o
-channel	nns	o
 channels	nns	o
 channels	vb	o
 character	nn	o
@@ -470,7 +439,6 @@ closed	jj	o
 closed	vbn	o
 closing	vbg	o
 closures	nns	o
-code	nn	o
 collectively	rb	o
 combine	vb	o
 combining	vbg	o
@@ -492,7 +460,6 @@ comparisons	nns	o
 compatibility	nn	o
 compile	jj	o
 compile-time	jj	o
-compiled	jj	o
 compiler	nn	o
 compilers	nns	o
 complement	nn	o
@@ -589,7 +556,6 @@ declare	vb	o
 declared	vbn	o
 declares	vbz	o
 decrement	jj	o
-default	nn	o
 defaults	vbz	o
 defer	nn	o
 deferred	jj	o
@@ -765,7 +731,6 @@ fall	vbp	o
 false	jj	o
 feed	nn	o
 fewer	jjr	o
-field	nn	o
 fields	nns	o
 file	nn	o
 files	nns	o
@@ -818,10 +783,7 @@ generator	nn	o
 get	vbp	o
 given	vbn	o
 gives	vbz	o
-goroutine	nn	o
 goroutines	nns	o
-goto	jj	o
-goto	nn	o
 grammar	nn	o
 greater	jjr	o
 group	nn	o
@@ -880,7 +842,6 @@ implicit	jj	o
 implicit	nn	o
 implicitly	rb	o
 implied	vbn	o
-import	nn	o
 imported	vbn	o
 importing	nn	o
 imports	nns	o
@@ -897,7 +858,6 @@ increment	nn	o
 incur	vb	o
 independent	jj	o
 independently	rb	o
-index	nn	o
 indexed	vbn	o
 indexing	nn	o
 indicate	vb	o
@@ -947,7 +907,6 @@ integer	nn	o
 integers	nns	o
 integral	jj	o
 integrated	jj	o
-interface	nn	o
 interface-valued	jj	o
 interfaces	nns	o
 interface{}	nn	o
@@ -982,7 +941,6 @@ just	rb	o
 key	jj	o
 key	nn	o
 keys	nns	o
-keyword	nn	o
 keywords	nns	o
 kind	nn	o
 kinds	nns	o
@@ -1030,8 +988,6 @@ list	nn	o
 listed	vbn	o
 listing	vbg	o
 lists	nns	o
-literal	jj	o
-literal	nn	o
 literally	rb	o
 literals	nns	o
 local	jj	o
@@ -1054,7 +1010,6 @@ management	nn	o
 mantissa	nn	o
 manual	nn	o
 manually	rb	o
-map	nn	o
 maps	nns	o
 mark	nn	o
 marked	vbn	o
@@ -1176,8 +1131,6 @@ overwrite	vb	o
 own	jj	o
 package-level	nn	o
 packages	nns	o
-panic	jj	o
-panic	nn	o
 panicking	nn	o
 panicking	vbg	o
 panics	nns	o
@@ -1210,7 +1163,6 @@ placeholder	nn	o
 plain	nn	o
 point	nn	o
 pointed	vbn	o
-pointer	nn	o
 pointer-receiver	jj	o
 pointers	nns	o
 pointing	vbg	o
@@ -1301,7 +1253,6 @@ receive	vbp	o
 receive-only	jj	o
 received	jj	o
 received	vbn	o
-receiver	nn	o
 receives	nns	o
 receiving	vbg	o
 recent	jj	o
@@ -1370,8 +1321,6 @@ resulting	vbg	o
 results	nns	o
 resumes	nns	o
 retrieved	vbn	o
-return	nn	o
-return	vb	o
 returned	vbn	o
 returning	vbg	o
 returns	nns	o
@@ -1388,7 +1337,6 @@ rounded	vbn	o
 rounding	nn	o
 rounding	vbg	o
 rounds	vbz	o
-routine	nn	o
 rule	nn	o
 rules	nns	o
 run	vb	o
@@ -1404,7 +1352,6 @@ satisfies	vbz	o
 satisfy	vbp	o
 saved	vbd	o
 scales	vbz	o
-scope	nn	o
 scoped	nns	o
 scopes	vbz	o
 scoping	nn	o
@@ -1447,7 +1394,6 @@ share	nn	o
 shared	vbn	o
 shares	nns	o
 sharing	vbg	o
-shift	nn	o
 shifted	vbn	o
 shifts	nns	o
 short	jj	o
@@ -1521,8 +1467,6 @@ storage	nn	o
 store	vb	o
 stored	vbn	o
 stream	nn	o
-string	nn	o
-string	vbg	o
 strings	nns	o
 strongest	jjs	o
 strongly	rb	o
@@ -1549,8 +1493,6 @@ supported	vbn	o
 surrogate	jj	o
 surrounding	vbg	o
 survive	vbp	o
-switch	nn	o
-switch	vb	o
 switches	nns	o
 switches	vbz	o
 synchronization	nn	o
@@ -1609,7 +1551,6 @@ tuple	jj	o
 turn	nn	o
 twice	rb	o
 two-digit	jj	o
-type	nn	o
 type-specific	jj	o
 typed	jj	o
 types	nns	o
@@ -1655,7 +1596,6 @@ uses	vbz	o
 using	vbg	o
 usual	jj	o
 valid	jj	o
-value	nn	o
 value-receiver	jj	o
 values	nns	o
 var	nn	o
