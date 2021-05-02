@@ -24,7 +24,8 @@ function collectTextNodes() {
 
 function processNode(node) {
   const fragment = document.createDocumentFragment();
-  node.textContent.split(/\s+/).forEach((word) => {
+  const words = node.textContent.split(/\s+/)
+  words.forEach((word) => {
     const span = document.createElement("span");
     span.textContent = word;
     fragment.appendChild(span);
