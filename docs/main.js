@@ -1,10 +1,10 @@
 main();
 
 function main() {
-  const nodesToIgnore = new Set(["h2", "h3", "pre"]);
+  const nodesToIgnore = new Set(["H2", "H3", "PRE"]);
   const textNodes = collectTextNodes();
   for (const node of textNodes) {
-    if (nodesToIgnore.has(node.parentNode.localName)) {
+    if (nodesToIgnore.has(node.parentNode.nodeName)) {
       continue;
     }
     processNode(node);
