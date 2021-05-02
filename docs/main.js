@@ -49,10 +49,10 @@ function processNode(node) {
       return;
     }
     span.className = "word";
-    const label = document.createElement("div");
-    label.textContent = meaning;
-    label.className = "word-label";
-    span.appendChild(label);
+    const tooltip = document.createElement("div");
+    tooltip.textContent = meaning;
+    tooltip.className = "word-label";
+    span.appendChild(tooltip);
   });
   if (fragment.children.length > 0 && fragment.lastChild.textContent === " ") {
     fragment.removeChild(fragment.lastChild);
