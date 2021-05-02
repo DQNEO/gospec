@@ -43,7 +43,7 @@ function processNode(node) {
     fragment.appendChild(span);
     fragment.appendChild(document.createTextNode(" "));
 
-    const trimmedWord = word.replace(/['",.:]/g, '');
+    const trimmedWord = word.replace(/['",.:;]/g, '');
     const meaning = lookupWord(trimmedWord);
     if (!meaning) {
       return;
