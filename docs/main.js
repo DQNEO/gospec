@@ -8,14 +8,19 @@ function textNodesUnder(el) {
   return a;
 }
 
-const allTextNodes = textNodesUnder(document.querySelector(".container"));
-
 const skippedNodes = new Set(["h2", "h3", "pre"]);
 
+const allTextNodes = textNodesUnder(document.querySelector(".container"));
+
+
 for (const node of allTextNodes) {
+    processNode(node)
+}
+
+function processNode(node) {
   const fragment = document.createDocumentFragment();
   if (skippedNodes.has(node.parentNode.localName)) {
-    continue;
+    return;
   }
   node.textContent.split(/\s+/).forEach((word) => {
     const span = document.createElement("span");
