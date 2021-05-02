@@ -1,4 +1,18 @@
-function textNodesUnder(el) {
+main();
+
+function main() {
+  const skippedNodes = new Set(["h2", "h3", "pre"]);
+  const textNodes = textNodesUnder();
+  for (const node of textNodes) {
+    if (skippedNodes.has(node.parentNode.localName)) {
+      continue;
+    }
+    processNode(node);
+  }
+}
+
+function textNodesUnder() {
+  const el = document.querySelector(".container")
   const a = [];
   let n;
   const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
@@ -8,20 +22,8 @@ function textNodesUnder(el) {
   return a;
 }
 
-const skippedNodes = new Set(["h2", "h3", "pre"]);
-
-const allTextNodes = textNodesUnder(document.querySelector(".container"));
-
-
-for (const node of allTextNodes) {
-    processNode(node)
-}
-
 function processNode(node) {
   const fragment = document.createDocumentFragment();
-  if (skippedNodes.has(node.parentNode.localName)) {
-    return;
-  }
   node.textContent.split(/\s+/).forEach((word) => {
     const span = document.createElement("span");
     span.textContent = word;
