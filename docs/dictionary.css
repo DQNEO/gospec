@@ -7,8 +7,6 @@
 }
 .word-label {
   display: none;
-}
-.word-label {
   position: absolute;
   top: -1.2rem;
   left: 0;
