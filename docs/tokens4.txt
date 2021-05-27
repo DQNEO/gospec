@@ -3906,7 +3906,7 @@ execution	nn	o
 parameters	nns	o
 passed	vbd	o
 back	rb	o
-calling	vbg	o
+caller	nn	o
 returns	nns	o
 Calling	vbg	o
 causes	vbz	o

@@ -2598,7 +2598,7 @@ the usual order.
 After they are evaluated, the parameters of the call are passed by value to the function
 and the called function begins execution.
 The return parameters of the function are passed by value
-back to the calling function when the function returns.
+back to the caller when the function returns.
 
 
 
@@ -2711,7 +2711,6 @@ value of type .
 If the left operand of a non-constant shift expression is an untyped constant,
 it is first implicitly converted to the type it would assume if the shift expression were
 replaced by its left operand alone.
-
 
 
 

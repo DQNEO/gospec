@@ -5049,8 +5049,7 @@ function	nn	o
 passed	vbd	o
 value	nn	o
 back	rb	o
-calling	vbg	o
-function	nn	o
+caller	nn	o
 function	nn	o
 returns	nns	o
 Calling	vbg	o

@@ -8965,8 +8965,7 @@ value	nn	o
 back	rb	o
 to	to	o
 the	dt	o
-calling	vbg	o
-function	nn	o
+caller	nn	o
 when	wrb	o
 the	dt	o
 function	nn	o
