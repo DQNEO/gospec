@@ -1,5 +1,6 @@
 var dic = 
 {
+  "": "",
   "EN": "JA",
   "FALSE": "",
   "TRUE": "",
@@ -81,7 +82,7 @@ var dic =
   "avoid": "避ける、回避する",
   "back": "",
   "backslash": "",
-  "backus-naur": "バッカスナウア",
+  "backus-naur": "バッカス・ナウア (ジョン・バッカスさんとピーター・ナウアさん名前から）",
   "backward": "",
   "base": "基となる、基底(の)",
   "becom": "",
@@ -278,7 +279,7 @@ var dic =
   "earli": "",
   "earlier": "",
   "easy": "",
-  "ebnf": "",
+  "ebnf": "拡張バッカスナウア記法",
   "effect": "",
   "efficient": "効率のよい",
   "element": "要素",
