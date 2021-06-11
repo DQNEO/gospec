@@ -664,7 +664,7 @@ The underlying type of , , and  is .
 
 Method sets
 
-A type may have a method set associated with it.
+A type has a (possibly empty) method set associated with it.
 The method set of an interface type is its interface.
 The method set of any other type  consists of all
 methods declared with receiver type .
@@ -2665,9 +2665,9 @@ within ,  will have the value
 
 
 
-If the final argument is assignable to a slice type , it is
-passed unchanged as the value for a  parameter if the argument
-is followed by . In this case no new slice is created.
+If the final argument is assignable to a slice type  and
+is followed by , it is passed unchanged as the value
+for a  parameter. In this case no new slice is created.
 
 
 
@@ -2765,8 +2765,8 @@ The bitwise logical and shift operators apply to integers only.
 ^    bitwise XOR            integers
 &^   bit clear (AND NOT)    integers
 
-<<   left shift             integer << unsigned integer
->>   right shift            integer >> unsigned integer
+<<   left shift             integer << integer >= 0
+>>   right shift            integer >> integer >= 0
 
 
 
@@ -3156,6 +3156,10 @@ in any of these cases:
 	
 	 is a string and  is a slice of bytes or runes.
 	
+	
+	 is a slice,  is a pointer to an array,
+	and the slice and array types have identical element types.
+	
 
 
 
@@ -3255,6 +3259,15 @@ Converting a value of a string type to a slice of runes type
 yields a slice containing the individual Unicode code points of the string.
 
 
+
+
+
+Conversions from slice to array pointer
+
+
+Converting a slice to an array pointer yields a pointer to the underlying array of the slice.
+If the length of the slice is less than the length of the array,
+a run-time panic occurs.
 
 
 
@@ -3686,7 +3699,7 @@ Switch statements
 
 
 "Switch" statements provide multi-way execution.
-An expression or type specifier is compared to the "cases"
+An expression or type is compared to the "cases"
 inside the "switch" to determine which branch
 to execute.
 
@@ -3724,9 +3737,9 @@ A missing switch expression is equivalent to the boolean value
 
 
 If the switch expression evaluates to an untyped constant, it is first implicitly
-converted to its default type;
-if it is an untyped boolean value, it is first implicitly converted to type .
+converted to its default type.
 The predeclared untyped value  cannot be used as a switch expression.
+The switch expression type must be comparable.
 
 
 
@@ -3774,7 +3787,7 @@ Type switches
 A type switch compares types rather than values. It is otherwise similar
 to an expression switch. It is marked by a special switch expression that
 has the form of a type assertion
-using the reserved word  rather than an actual type:
+using the keyword  rather than an actual type:
 
 
 
@@ -5037,6 +5050,10 @@ func Alignof(variable ArbitraryType) uintptr
 func Offsetof(selector ArbitraryType) uintptr
 func Sizeof(variable ArbitraryType) uintptr
 
+type IntegerType int  // shorthand for an integer type; it is not a real type
+func Add(ptr Pointer, len IntegerType) Pointer
+func Slice(ptr *ArbitraryType, len IntegerType) []ArbitraryType
+
 
 
 A  is a pointer type but a 
@@ -5078,6 +5095,30 @@ alignment of the (type of the) variable in bytes.  For a variable
 
 Calls to , , and
  are compile-time constant expressions of type .
+
+
+
+The function  adds  to 
+and returns the updated pointer .
+The  argument must be of integer type or an untyped constant.
+A constant  argument must be representable by a value of type ;
+if it is an untyped constant it is given type .
+The rules for valid uses of  still apply.
+
+
+
+The function  returns a slice whose underlying array starts at 
+and whose length and capacity are :
+
+
+
+
+
+The  argument must be of integer type or an untyped constant.
+A constant  argument must be non-negative and representable by a value of type ;
+if it is an untyped constant it is given type .
+If  is  or  is negative at run time,
+a run-time panic occurs.
 
 
 Size and alignment guarantees
