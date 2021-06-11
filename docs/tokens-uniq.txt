@@ -100,6 +100,7 @@ importpaths	nnp	o
 initialization	nnp	o
 instead	rb	o
 integer	jjr	o
+integertype	nnp	o
 interpreted	vbn	o
 introduction	nn	o
 iota	nnp	o
@@ -264,6 +265,7 @@ addressability	nn	o
 addressable	jj	o
 addressed	vbn	o
 addresses	nns	o
+adds	vbz	o
 advance	vb	o
 advances	nns	o
 affect	vbp	o
@@ -298,7 +300,7 @@ append	vb	o
 appends	vbz	o
 applied	vbd	o
 applies	nns	o
-apply	rb	o
+apply	vb	o
 apply	vbp	o
 applying	vbg	o
 approximately	rb	o
@@ -765,7 +767,7 @@ fraction	nn	o
 fractional	jj	o
 full	jj	o
 fully	rb	o
-func	jj	o
+func	nn	o
 function-local	jj	o
 functionality	nn	o
 functions	nns	o
@@ -966,10 +968,10 @@ left-to-right	jj	o
 leftmost	nn	o
 legal	jj	o
 legally	rb	o
-len	nns	o
+len	nnp	o
 length	nn	o
 lengths	nns	o
-less	rbr	o
+less	jjr	o
 letter	nn	o
 letters	nns	o
 level	nn	o
@@ -1339,7 +1341,7 @@ rounding	vbg	o
 rounds	vbz	o
 rule	nn	o
 rules	nns	o
-run	vb	o
+run	jj	o
 run	vbn	o
 run-time	jj	o
 rune	nn	o
@@ -1438,7 +1440,6 @@ specific	jj	o
 specification	nn	o
 specifications	nns	o
 specified	vbn	o
-specifier	nn	o
 specifies	vbz	o
 specify	vb	o
 specifying	vbg	o
@@ -1569,7 +1570,7 @@ unable	jj	o
 unary	jj	o
 unbuffered	jj	o
 unchanged	jj	o
-underlying	vbg	o
+underlying	jj	o
 underscore	jj	o
 underscores	nns	o
 unescaped	jj	o
@@ -1589,10 +1590,11 @@ unsafe	jj	o
 unsigned	jj	o
 unspecified	jj	o
 untyped	jj	o
+updated	jj	o
 upper	jj	o
 used	vbn	o
 useful	jj	o
-uses	vbz	o
+uses	nns	o
 using	vbg	o
 usual	jj	o
 valid	jj	o
@@ -1622,7 +1624,6 @@ were	vbd	o
 wide	jj	o
 width	nn	o
 wishes	vbz	o
-word	nn	o
 words	nns	o
 wrap	nn	o
 write	vb	o
