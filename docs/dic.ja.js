@@ -1001,6 +1001,7 @@ var dic =
   "unbuffered": "",
   "unchanged": "",
   "under": "",
+  "underlying": "裏に潜んだ、背後の",
   "underscore": "",
   "unescaped": "エスケープされていない",
   "uniform": "",
