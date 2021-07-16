@@ -314,9 +314,10 @@ spaces	nns	o
 horizontal	jj	o
 tabs	nn	o
 carriage	nn	o
-returns	vbz	o
+returns	nns	o
 newlines	nns	o
 ignored	vbn	o
+except	vb	o
 separates	vbz	o
 tokens	nns	o
 otherwise	rb	o
@@ -670,6 +671,7 @@ quotes	nns	o
 quotes	nns	o
 character	nn	o
 appear	vbp	o
+except	vb	o
 newline	nn	o
 unescaped	jj	o
 single	jj	o
@@ -864,6 +866,7 @@ quotes	nns	o
 quotes	nns	o
 character	nn	o
 appear	vbp	o
+except	vb	o
 back	rb	o
 quote	nn	o
 value	nn	o
@@ -905,6 +908,7 @@ quotes	nns	o
 quotes	nns	o
 character	nn	o
 appear	vbp	o
+except	vb	o
 newline	nn	o
 unescaped	jj	o
 double	jj	o
@@ -1639,6 +1643,7 @@ defined	vbn	o
 types	nns	o
 thus	rb	o
 distinct	jj	o
+except	vb	o
 alias	nn	o
 alias	nn	o
 Explicit	nnp	b-person
@@ -2004,6 +2009,7 @@ act	vbp	o
 ordinary	jj	o
 fields	nns	o
 struct	nn	o
+except	vb	o
 cannot	vbp	o
 used	vbn	o
 field	nn	o
@@ -2065,7 +2071,7 @@ declaration	nn	o
 empty	jj	o
 tag	nn	o
 string	vbg	o
-equivalent	nn	o
+equivalent	jj	o
 absent	jj	o
 tag	nn	o
 tags	nns	o
@@ -2145,6 +2151,7 @@ result	nn	o
 lists	nns	o
 always	rb	o
 parenthesized	vbn	o
+except	vb	o
 there	ex	o
 exactly	rb	o
 unnamed	jj	o
@@ -2412,9 +2419,10 @@ stored	vbn	o
 exception	nn	o
 maps	nns	o
 map	nn	o
-equivalent	nn	o
+equivalent	jj	o
 empty	jj	o
 map	nn	o
+except	vb	o
 elements	nns	o
 added	vbn	o
 Channel	nnp	o
@@ -3248,7 +3256,7 @@ ConstSpec	nnp	o
 Such	jj	o
 empty	jj	o
 list	nn	o
-equivalent	nn	o
+equivalent	jj	o
 textual	jj	o
 substitution	nn	o
 preceding	vbg	o
@@ -3260,7 +3268,7 @@ Omitting	vbg	o
 list	nn	o
 expressions	nns	o
 therefore	rb	o
-equivalent	nn	o
+equivalent	jj	o
 repeating	vbg	o
 previous	jj	o
 list	nn	o
@@ -3799,6 +3807,7 @@ type	nn	o
 grammar	nn	o
 enforces	vbz	o
 constraint	nn	o
+except	vb	o
 type	nn	o
 given	vbn	o
 TypeName	nn	o
@@ -4321,7 +4330,7 @@ type	nn	o
 expression	nn	o
 yields	nns	o
 function	nn	o
-equivalent	nn	o
+equivalent	jj	o
 explicit	jj	o
 receiver	nn	o
 argument	nn	o
@@ -4494,7 +4503,7 @@ pointer	nn	o
 automatically	rb	o
 dereference	vb	o
 pointer	nn	o
-equivalent	nn	o
+equivalent	jj	o
 method	nn	o
 calls	nns	o
 reference	nn	o
@@ -4509,7 +4518,7 @@ automatically	rb	o
 take	vb	o
 address	nn	o
 value	nn	o
-equivalent	nn	o
+equivalent	jj	o
 examples	nns	o
 non-interface	jj	o
 types	nns	o
@@ -5131,7 +5140,7 @@ parameter	nn	o
 type	nn	o
 then	rb	o
 type	nn	o
-equivalent	nn	o
+equivalent	jj	o
 type	nn	o
 invoked	vbn	o
 actual	jj	o
@@ -6854,7 +6863,7 @@ op	jj	o
 binary	jj	o
 arithmetic	nn	o
 operator	nn	o
-equivalent	nn	o
+equivalent	jj	o
 op	jj	o
 evaluates	vbz	o
 once	rb	o
@@ -7124,7 +7133,7 @@ statement	nn	o
 missing	jj	o
 switch	vb	o
 expression	nn	o
-equivalent	nn	o
+equivalent	jj	o
 boolean	jj	o
 value	nn	o
 switch	vb	o
@@ -7387,7 +7396,7 @@ evaluated	vbn	o
 iteration	nn	o
 condition	nn	o
 absent	jj	o
-equivalent	nn	o
+equivalent	jj	o
 boolean	jj	o
 value	nn	o
 statements	nns	o
@@ -7445,7 +7454,7 @@ there	ex	o
 condition	nn	o
 condition	nn	o
 absent	jj	o
-equivalent	nn	o
+equivalent	jj	o
 boolean	jj	o
 value	nn	o
 statements	nns	o
@@ -7518,7 +7527,7 @@ blank	jj	o
 identifier	nn	o
 range	nn	o
 clause	nn	o
-equivalent	nn	o
+equivalent	jj	o
 clause	nn	o
 identifier	nn	o
 range	nn	o
@@ -7971,7 +7980,7 @@ values	nns	o
 functions	nns	o
 deferred	jj	o
 executed	vbn	o
-returns	vbz	o
+returns	nns	o
 caller	nn	o
 function	nn	o
 result	nn	o
@@ -8054,7 +8063,7 @@ values	nns	o
 necessary	jj	o
 return	nn	o
 statement	nn	o
-returns	vbz	o
+returns	nns	o
 values	nns	o
 variables	nns	o
 Regardless	nnp	o
@@ -8258,7 +8267,7 @@ were	vbd	o
 deferred	vbn	o
 surrounding	vbg	o
 function	nn	o
-returns	vbz	o
+returns	nns	o
 explicit	jj	o
 return	vb	o
 statement	nn	o
@@ -8271,7 +8280,7 @@ set	nn	o
 return	vb	o
 statement	nn	o
 function	nn	o
-returns	vbz	o
+returns	nns	o
 caller	nn	o
 deferred	jj	o
 function	nn	o
@@ -8386,7 +8395,7 @@ blocking	vbg	o
 multi-valued	jj	o
 receive	nn	o
 operation	nn	o
-returns	vbz	o
+returns	nns	o
 received	jj	o
 value	nn	o
 indication	nn	o
@@ -8497,7 +8506,7 @@ variable	nn	o
 type	nn	o
 run	jj	o
 time	nn	o
-returns	vbz	o
+returns	nns	o
 value	nn	o
 type	nn	o
 pointing	vbg	o
@@ -8513,7 +8522,7 @@ storage	nn	o
 variable	nn	o
 type	nn	o
 initializes	vbz	o
-returns	vbz	o
+returns	nns	o
 value	nn	o
 type	nn	o
 containing	vbg	o
@@ -8536,7 +8545,7 @@ followed	vbn	o
 type-specific	jj	o
 list	nn	o
 expressions	nns	o
-returns	vbz	o
+returns	nns	o
 value	nn	o
 type	nn	o
 memory	nn	o
@@ -8645,7 +8654,7 @@ values	nns	o
 type	nn	o
 slice	nn	o
 type	nn	o
-returns	vbz	o
+returns	nns	o
 resulting	vbg	o
 slice	nn	o
 also	rb	o
@@ -8707,7 +8716,7 @@ slice	nn	o
 elements	nns	o
 source	nn	o
 destination	nn	o
-returns	vbz	o
+returns	nns	o
 number	nn	o
 elements	nns	o
 copied	vbn	o
@@ -8952,7 +8961,7 @@ call	nn	o
 value	nn	o
 passed	vbd	o
 call	nn	o
-returns	vbz	o
+returns	nns	o
 normally	rb	o
 starting	vbg	o
 new	jj	o
@@ -9751,7 +9760,7 @@ declare	vb	o
 function	nn	o
 takes	vbz	o
 arguments	nns	o
-returns	vbz	o
+returns	nns	o
 value	nn	o
 Program	nnp	o
 execution	nn	o
@@ -9804,7 +9813,7 @@ bounds	nns	o
 trigger	vbp	o
 run-time	jj	o
 panic	nn	o
-equivalent	nn	o
+equivalent	jj	o
 call	nn	o
 built-in	jj	o
 function	nn	o
@@ -9932,7 +9941,7 @@ denoting	vbg	o
 field	nn	o
 struct	nn	o
 denoted	vbn	o
-returns	vbz	o
+returns	nns	o
 field	nn	o
 offset	nn	o
 bytes	nns	o
@@ -9967,7 +9976,7 @@ expression	nn	o
 denoting	vbg	o
 variable	nn	o
 type	nn	o
-returns	vbz	o
+returns	nns	o
 alignment	nn	o
 type	nn	o
 variable	nn	o
@@ -9980,7 +9989,7 @@ expressions	nns	o
 type	nn	o
 function	nn	o
 adds	vbz	o
-returns	vbz	o
+returns	nns	o
 updated	jj	o
 pointer	nn	o
 argument	nn	o
@@ -10003,13 +10012,19 @@ uses	nns	o
 still	rb	o
 apply	vb	o
 function	nn	o
-returns	vbz	o
+returns	nns	o
 slice	nn	o
 underlying	jj	o
 array	nn	o
 starts	vbz	o
 length	nn	o
 capacity	nn	o
+equivalent	jj	o
+except	vb	o
+that	rb	o
+special	jj	o
+case	nn	o
+returns	nns	o
 argument	nn	o
 integer	jj	o
 type	nn	o
@@ -10025,9 +10040,9 @@ untyped	jj	o
 constant	nn	o
 given	vbn	o
 type	nn	o
-negative	jj	o
 run	jj	o
 time	nn	o
+negative	jj	o
 run-time	jj	o
 panic	nn	o
 occurs	nns	o

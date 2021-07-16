@@ -678,7 +678,6 @@ equal	vb	o
 equality	nn	o
 equals	vbz	o
 equivalent	jj	o
-equivalent	nn	o
 erroneous	jj	o
 erroneously	rb	o
 error	nn	o
@@ -696,6 +695,7 @@ exact	jj	o
 exactly	rb	o
 example	nn	o
 examples	nns	o
+except	vb	o
 exception	nn	o
 exclude	vb	o
 excludes	vbz	o
@@ -1326,7 +1326,6 @@ retrieved	vbn	o
 returned	vbn	o
 returning	vbg	o
 returns	nns	o
-returns	vbz	o
 reverse	nn	o
 rewritten	vbn	o
 right	nn	o
@@ -1522,6 +1521,7 @@ terms	nns	o
 tested	vbn	o
 text	nn	o
 textual	jj	o
+that	rb	o
 then	rb	o
 there	ex	o
 therefore	rb	o

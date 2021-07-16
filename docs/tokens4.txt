@@ -287,9 +287,10 @@ spaces	nns	o
 horizontal	jj	o
 tabs	nn	o
 carriage	nn	o
-returns	vbz	o
+returns	nns	o
 newlines	nns	o
 ignored	vbn	o
+except	vb	o
 separates	vbz	o
 tokens	nns	o
 otherwise	rb	o
@@ -606,6 +607,7 @@ quotes	nns	o
 quotes	nns	o
 character	nn	o
 appear	vbp	o
+except	vb	o
 newline	nn	o
 unescaped	jj	o
 single	jj	o
@@ -770,6 +772,7 @@ quotes	nns	o
 quotes	nns	o
 character	nn	o
 appear	vbp	o
+except	vb	o
 back	rb	o
 quote	nn	o
 raw	jj	o
@@ -800,6 +803,7 @@ quotes	nns	o
 quotes	nns	o
 character	nn	o
 appear	vbp	o
+except	vb	o
 newline	nn	o
 unescaped	jj	o
 double	jj	o
@@ -1403,6 +1407,7 @@ defined	vbn	o
 types	nns	o
 thus	rb	o
 distinct	jj	o
+except	vb	o
 alias	nn	o
 alias	nn	o
 Explicit	nnp	b-person
@@ -1689,6 +1694,7 @@ act	vbp	o
 ordinary	jj	o
 fields	nns	o
 struct	nn	o
+except	vb	o
 cannot	vbp	o
 used	vbn	o
 names	vbz	o
@@ -1733,7 +1739,7 @@ corresponding	jj	o
 declaration	nn	o
 empty	jj	o
 tag	nn	o
-equivalent	nn	o
+equivalent	jj	o
 absent	jj	o
 tag	nn	o
 tags	nns	o
@@ -1794,6 +1800,7 @@ result	nn	o
 lists	nns	o
 always	rb	o
 parenthesized	vbn	o
+except	vb	o
 there	ex	o
 exactly	rb	o
 unnamed	jj	o
@@ -1982,8 +1989,9 @@ items	nns	o
 stored	vbn	o
 exception	nn	o
 maps	nns	o
-equivalent	nn	o
+equivalent	jj	o
 empty	jj	o
+except	vb	o
 elements	nns	o
 added	vbn	o
 types	nns	o
@@ -2658,7 +2666,7 @@ ConstSpec	nnp	o
 Such	jj	o
 empty	jj	o
 list	nn	o
-equivalent	nn	o
+equivalent	jj	o
 textual	jj	o
 substitution	nn	o
 preceding	vbg	o
@@ -2669,7 +2677,7 @@ Omitting	vbg	o
 list	nn	o
 expressions	nns	o
 therefore	rb	o
-equivalent	nn	o
+equivalent	jj	o
 repeating	vbg	o
 previous	jj	o
 list	nn	o
@@ -3078,6 +3086,7 @@ array	vb	o
 grammar	nn	o
 enforces	vbz	o
 constraint	nn	o
+except	vb	o
 given	vbn	o
 TypeName	nn	o
 types	nns	o
@@ -3440,7 +3449,7 @@ struct	nn	o
 methods	nns	o
 expression	nn	o
 yields	nns	o
-equivalent	nn	o
+equivalent	jj	o
 explicit	jj	o
 argument	nn	o
 signature	nn	o
@@ -3534,7 +3543,7 @@ non-interface	jj	o
 using	vbg	o
 automatically	rb	o
 dereference	vb	o
-equivalent	nn	o
+equivalent	jj	o
 calls	nns	o
 reference	nn	o
 non-interface	jj	o
@@ -3543,7 +3552,7 @@ addressable	jj	o
 automatically	rb	o
 take	vb	o
 address	nn	o
-equivalent	nn	o
+equivalent	jj	o
 examples	nns	o
 non-interface	jj	o
 types	nns	o
@@ -3965,7 +3974,7 @@ variadic	jj	o
 final	jj	o
 parameter	nn	o
 then	rb	o
-equivalent	nn	o
+equivalent	jj	o
 invoked	vbn	o
 actual	jj	o
 arguments	nns	o
@@ -5417,7 +5426,7 @@ op	jj	o
 binary	jj	o
 arithmetic	nn	o
 operator	nn	o
-equivalent	nn	o
+equivalent	jj	o
 op	jj	o
 evaluates	vbz	o
 once	rb	o
@@ -5640,7 +5649,7 @@ anywhere	rb	o
 statement	nn	o
 missing	jj	o
 expression	nn	o
-equivalent	nn	o
+equivalent	jj	o
 boolean	jj	o
 expression	nn	o
 evaluates	vbz	o
@@ -5840,7 +5849,7 @@ evaluated	vbn	o
 iteration	nn	o
 condition	nn	o
 absent	jj	o
-equivalent	nn	o
+equivalent	jj	o
 boolean	jj	o
 statements	nns	o
 clause	nn	o
@@ -5895,7 +5904,7 @@ there	ex	o
 condition	nn	o
 condition	nn	o
 absent	jj	o
-equivalent	nn	o
+equivalent	jj	o
 boolean	jj	o
 statements	nns	o
 clause	nn	o
@@ -5954,7 +5963,7 @@ blank	jj	o
 identifier	nn	o
 range	nn	o
 clause	nn	o
-equivalent	nn	o
+equivalent	jj	o
 clause	nn	o
 identifier	nn	o
 range	nn	o
@@ -6317,7 +6326,7 @@ values	nns	o
 functions	nns	o
 deferred	jj	o
 executed	vbn	o
-returns	vbz	o
+returns	nns	o
 caller	nn	o
 result	nn	o
 statement	nn	o
@@ -6377,7 +6386,7 @@ assign	vb	o
 values	nns	o
 necessary	jj	o
 statement	nn	o
-returns	vbz	o
+returns	nns	o
 values	nns	o
 variables	nns	o
 Regardless	nnp	o
@@ -6544,7 +6553,7 @@ order	nn	o
 were	vbd	o
 deferred	vbn	o
 surrounding	vbg	o
-returns	vbz	o
+returns	nns	o
 explicit	jj	o
 statement	nn	o
 deferred	jj	o
@@ -6554,7 +6563,7 @@ result	nn	o
 parameters	nns	o
 set	nn	o
 statement	nn	o
-returns	vbz	o
+returns	nns	o
 caller	nn	o
 deferred	jj	o
 evaluates	vbz	o
@@ -6640,7 +6649,7 @@ blocking	vbg	o
 multi-valued	jj	o
 receive	nn	o
 operation	nn	o
-returns	vbz	o
+returns	nns	o
 received	jj	o
 indication	nn	o
 closed	vbn	o
@@ -6723,7 +6732,7 @@ storage	nn	o
 variable	nn	o
 run	jj	o
 time	nn	o
-returns	vbz	o
+returns	nns	o
 pointing	vbg	o
 variable	nn	o
 initialized	vbn	o
@@ -6736,7 +6745,7 @@ allocates	vbz	o
 storage	nn	o
 variable	nn	o
 initializes	vbz	o
-returns	vbz	o
+returns	nns	o
 containing	vbg	o
 address	nn	o
 location	nn	o
@@ -6751,7 +6760,7 @@ followed	vbn	o
 type-specific	jj	o
 list	nn	o
 expressions	nns	o
-returns	vbz	o
+returns	nns	o
 memory	nn	o
 initialized	vbn	o
 described	vbn	o
@@ -6825,7 +6834,7 @@ variadic	jj	o
 appends	vbz	o
 more	jjr	o
 values	nns	o
-returns	vbz	o
+returns	nns	o
 resulting	vbg	o
 also	rb	o
 values	nns	o
@@ -6874,7 +6883,7 @@ copies	vbz	o
 elements	nns	o
 source	nn	o
 destination	nn	o
-returns	vbz	o
+returns	nns	o
 number	nn	o
 elements	nns	o
 copied	vbn	o
@@ -7061,7 +7070,7 @@ reaches	nns	o
 call	nn	o
 passed	vbd	o
 call	nn	o
-returns	vbz	o
+returns	nns	o
 normally	rb	o
 starting	vbg	o
 new	jj	o
@@ -7738,7 +7747,7 @@ have	vb	o
 declare	vb	o
 takes	vbz	o
 arguments	nns	o
-returns	vbz	o
+returns	nns	o
 Program	nnp	o
 execution	nn	o
 begins	vbz	o
@@ -7781,7 +7790,7 @@ array	nn	o
 bounds	nns	o
 trigger	vbp	o
 run-time	jj	o
-equivalent	nn	o
+equivalent	jj	o
 call	nn	o
 built-in	jj	o
 implementation-defined	jj	o
@@ -7870,7 +7879,7 @@ selector	nn	o
 denoting	vbg	o
 struct	nn	o
 denoted	vbn	o
-returns	vbz	o
+returns	nns	o
 offset	nn	o
 bytes	nns	o
 relative	vbp	o
@@ -7898,7 +7907,7 @@ takes	vbz	o
 expression	nn	o
 denoting	vbg	o
 variable	nn	o
-returns	vbz	o
+returns	nns	o
 alignment	nn	o
 variable	nn	o
 bytes	nns	o
@@ -7908,7 +7917,7 @@ compile-time	jj	o
 constant	nn	o
 expressions	nns	o
 adds	vbz	o
-returns	vbz	o
+returns	nns	o
 updated	jj	o
 argument	nn	o
 integer	jj	o
@@ -7925,12 +7934,17 @@ valid	jj	o
 uses	nns	o
 still	rb	o
 apply	vb	o
-returns	vbz	o
+returns	nns	o
 underlying	jj	o
 array	nn	o
 starts	vbz	o
 length	nn	o
 capacity	nn	o
+equivalent	jj	o
+except	vb	o
+that	rb	o
+special	jj	o
+returns	nns	o
 argument	nn	o
 integer	jj	o
 untyped	jj	o
@@ -7942,9 +7956,9 @@ representable	jj	o
 untyped	jj	o
 constant	nn	o
 given	vbn	o
-negative	jj	o
 run	jj	o
 time	nn	o
+negative	jj	o
 run-time	jj	o
 occurs	nns	o
 Size	nnp	b-person

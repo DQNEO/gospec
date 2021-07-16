@@ -5108,16 +5108,24 @@ The rules for valid uses of  still apply.
 
 
 The function  returns a slice whose underlying array starts at 
-and whose length and capacity are :
+and whose length and capacity are .
+ is equivalent to
 
 
+
+
+
+except that, as a special case, if 
+is  and  is zero,
+ returns .
 
 
 
 The  argument must be of integer type or an untyped constant.
 A constant  argument must be non-negative and representable by a value of type ;
 if it is an untyped constant it is given type .
-If  is  or  is negative at run time,
+At run time, if  is negative,
+or if  is  and  is not zero,
 a run-time panic occurs.
 
 
@@ -5154,6 +5162,7 @@ For a variable  of array type:  is the same as
 
 
 A struct or array type has size zero if it contains no fields (or elements, respectively) that have a size greater than zero. Two distinct zero-size variables may have the same address in memory.
+
 
 
 

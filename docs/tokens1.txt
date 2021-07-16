@@ -483,12 +483,12 @@ spaces	nns	o
 horizontal	jj	o
 tabs	nn	o
 carriage	nn	o
-returns	vbz	o
+returns	nns	o
 and	cc	o
 newlines	nns	o
 is	vbz	o
 ignored	vbn	o
-except	in	o
+except	vb	o
 as	in	o
 it	prp	o
 separates	vbz	o
@@ -1068,7 +1068,7 @@ any	dt	o
 character	nn	o
 may	md	o
 appear	vbp	o
-except	in	o
+except	vb	o
 newline	nn	o
 and	cc	o
 unescaped	jj	o
@@ -1355,7 +1355,7 @@ any	dt	o
 character	nn	o
 may	md	o
 appear	vbp	o
-except	in	o
+except	vb	o
 back	rb	o
 quote	nn	o
 The	dt	o
@@ -1422,7 +1422,7 @@ any	dt	o
 character	nn	o
 may	md	o
 appear	vbp	o
-except	in	o
+except	vb	o
 newline	nn	o
 and	cc	o
 unescaped	jj	o
@@ -2630,7 +2630,7 @@ types	nns	o
 and	cc	o
 thus	rb	o
 distinct	jj	o
-except	in	o
+except	vb	o
 which	wdt	o
 is	vbz	o
 an	dt	o
@@ -3313,7 +3313,7 @@ ordinary	jj	o
 fields	nns	o
 of	in	o
 struct	nn	o
-except	in	o
+except	vb	o
 that	wdt	o
 they	prp	o
 cannot	vbp	o
@@ -3419,7 +3419,7 @@ empty	jj	o
 tag	nn	o
 string	vbg	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 an	dt	o
 absent	jj	o
@@ -3561,7 +3561,7 @@ lists	nns	o
 are	vbp	o
 always	rb	o
 parenthesized	vbn	o
-except	in	o
+except	vb	o
 that	wdt	o
 if	in	o
 there	ex	o
@@ -4044,12 +4044,12 @@ of	in	o
 maps	nns	o
 map	nn	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 an	dt	o
 empty	jj	o
 map	nn	o
-except	in	o
+except	vb	o
 that	wdt	o
 no	dt	o
 elements	nns	o
@@ -5550,7 +5550,7 @@ an	dt	o
 empty	jj	o
 list	nn	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 the	dt	o
 textual	jj	o
@@ -5574,7 +5574,7 @@ of	in	o
 expressions	nns	o
 is	vbz	o
 therefore	rb	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 repeating	vbg	o
 the	dt	o
@@ -6527,7 +6527,7 @@ grammar	nn	o
 enforces	vbz	o
 this	dt	o
 constraint	nn	o
-except	in	o
+except	vb	o
 when	wrb	o
 the	dt	o
 type	nn	o
@@ -7539,7 +7539,7 @@ The	dt	o
 expression	nn	o
 yields	nns	o
 function	nn	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 but	cc	o
 with	in	o
@@ -7860,7 +7860,7 @@ dereference	vb	o
 that	wdt	o
 pointer	nn	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 As	in	o
 with	in	o
@@ -7886,7 +7886,7 @@ of	in	o
 that	wdt	o
 value	nn	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 Although	in	o
 the	dt	o
@@ -9123,7 +9123,7 @@ the	dt	o
 type	nn	o
 of	in	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 type	nn	o
 If	in	o
@@ -12143,7 +12143,7 @@ binary	jj	o
 arithmetic	nn	o
 operator	nn	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 op	jj	o
 but	cc	o
@@ -12648,7 +12648,7 @@ missing	jj	o
 switch	vb	o
 expression	nn	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 the	dt	o
 boolean	jj	o
@@ -13137,7 +13137,7 @@ is	vbz	o
 absent	jj	o
 it	prp	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 the	dt	o
 boolean	jj	o
@@ -13259,7 +13259,7 @@ is	vbz	o
 absent	jj	o
 it	prp	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 the	dt	o
 boolean	jj	o
@@ -13394,7 +13394,7 @@ the	dt	o
 range	nn	o
 clause	nn	o
 is	vbz	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 the	dt	o
 same	jj	o
@@ -14241,7 +14241,7 @@ by	in	o
 are	vbp	o
 executed	vbn	o
 before	in	o
-returns	vbz	o
+returns	nns	o
 to	to	o
 its	prp$	o
 caller	nn	o
@@ -14391,7 +14391,7 @@ necessary	jj	o
 The	dt	o
 return	nn	o
 statement	nn	o
-returns	vbz	o
+returns	nns	o
 the	dt	o
 values	nns	o
 of	in	o
@@ -14792,7 +14792,7 @@ if	in	o
 the	dt	o
 surrounding	vbg	o
 function	nn	o
-returns	vbz	o
+returns	nns	o
 through	in	o
 an	dt	o
 explicit	jj	o
@@ -14816,7 +14816,7 @@ but	cc	o
 before	in	o
 the	dt	o
 function	nn	o
-returns	vbz	o
+returns	nns	o
 to	to	o
 its	prp$	o
 caller	nn	o
@@ -15021,7 +15021,7 @@ The	dt	o
 multi-valued	jj	o
 receive	nn	o
 operation	nn	o
-returns	vbz	o
+returns	nns	o
 received	jj	o
 value	nn	o
 along	in	o
@@ -15210,7 +15210,7 @@ at	in	o
 run	jj	o
 time	nn	o
 and	cc	o
-returns	vbz	o
+returns	nns	o
 value	nn	o
 of	in	o
 type	nn	o
@@ -15240,7 +15240,7 @@ type	nn	o
 initializes	vbz	o
 it	prp	o
 and	cc	o
-returns	vbz	o
+returns	nns	o
 value	nn	o
 of	in	o
 type	nn	o
@@ -15276,7 +15276,7 @@ list	nn	o
 of	in	o
 expressions	nns	o
 It	prp	o
-returns	vbz	o
+returns	nns	o
 value	nn	o
 of	in	o
 type	nn	o
@@ -15470,7 +15470,7 @@ be	vb	o
 slice	nn	o
 type	nn	o
 and	cc	o
-returns	vbz	o
+returns	nns	o
 the	dt	o
 resulting	vbg	o
 slice	nn	o
@@ -15574,7 +15574,7 @@ source	nn	o
 to	to	o
 destination	nn	o
 and	cc	o
-returns	vbz	o
+returns	nns	o
 the	dt	o
 number	nn	o
 of	in	o
@@ -16029,7 +16029,7 @@ the	dt	o
 call	nn	o
 of	in	o
 If	in	o
-returns	vbz	o
+returns	nns	o
 normally	rb	o
 without	in	o
 starting	vbg	o
@@ -17471,7 +17471,7 @@ takes	vbz	o
 no	dt	o
 arguments	nns	o
 and	cc	o
-returns	vbz	o
+returns	nns	o
 no	dt	o
 value	nn	o
 Program	nnp	o
@@ -17557,7 +17557,7 @@ bounds	nns	o
 trigger	vbp	o
 run-time	jj	o
 panic	nn	o
-equivalent	nn	o
+equivalent	jj	o
 to	to	o
 call	nn	o
 of	in	o
@@ -17760,7 +17760,7 @@ denoted	vbn	o
 by	in	o
 or	cc	o
 and	cc	o
-returns	vbz	o
+returns	nns	o
 the	dt	o
 field	nn	o
 offset	nn	o
@@ -17827,7 +17827,7 @@ of	in	o
 any	dt	o
 type	nn	o
 and	cc	o
-returns	vbz	o
+returns	nns	o
 the	dt	o
 alignment	nn	o
 of	in	o
@@ -17854,7 +17854,7 @@ function	nn	o
 adds	vbz	o
 to	to	o
 and	cc	o
-returns	vbz	o
+returns	nns	o
 the	dt	o
 updated	jj	o
 pointer	nn	o
@@ -17898,7 +17898,7 @@ still	rb	o
 apply	vb	o
 The	dt	o
 function	nn	o
-returns	vbz	o
+returns	nns	o
 slice	nn	o
 whose	wp$	o
 underlying	jj	o
@@ -17911,6 +17911,20 @@ length	nn	o
 and	cc	o
 capacity	nn	o
 are	vbp	o
+is	vbz	o
+equivalent	jj	o
+to	to	o
+except	vb	o
+that	rb	o
+as	in	o
+special	jj	o
+case	nn	o
+if	in	o
+is	vbz	o
+and	cc	o
+is	vbz	o
+zero	cd	o
+returns	nns	o
 The	dt	o
 argument	nn	o
 must	md	o
@@ -17943,14 +17957,19 @@ it	prp	o
 is	vbz	o
 given	vbn	o
 type	nn	o
-If	in	o
-is	vbz	o
-or	cc	o
-is	vbz	o
-negative	jj	o
-at	in	o
+At	in	o
 run	jj	o
 time	nn	o
+if	in	o
+is	vbz	o
+negative	jj	o
+or	cc	o
+if	in	o
+is	vbz	o
+and	cc	o
+is	vbz	o
+not	rb	o
+zero	cd	o
 run-time	jj	o
 panic	nn	o
 occurs	nns	o
