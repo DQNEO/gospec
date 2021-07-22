@@ -56,7 +56,7 @@ function generateTableOfContents() {
     }
 
     const link = document.createElement("a");
-    link.href = tocItem.id;
+    link.href = `#${tocItem.id}`;
     link.textContent = tocItem.name;
     headerNode.appendChild(link);
 
