@@ -6632,12 +6632,10 @@ Terminating	vbg	o
 statements	nns	o
 terminating	nn	o
 statement	nn	o
-prevents	vbz	o
-execution	nn	o
-all	pdt	o
-statements	nns	o
-lexically	rb	o
-appear	vbp	o
+interrupts	vbz	o
+regular	jj	o
+flow	vb	o
+control	vbp	o
 block	nn	o
 following	vbg	o
 statements	nns	o

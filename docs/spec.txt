@@ -2,11 +2,16 @@
 
 
 
+
+
   
 
 
 
   
+
+
+
 
 
 
@@ -396,8 +401,8 @@ After a backslash, certain single-character escapes represent special values:
 \n   U+000A line feed or newline
 \r   U+000D carriage return
 \t   U+0009 horizontal tab
-\v   U+000b vertical tab
-\\   U+005c backslash
+\v   U+000B vertical tab
+\\   U+005C backslash
 \'   U+0027 single quote  (valid escape only within rune literals)
 \"   U+0022 double quote  (valid escape only within string literals)
 
@@ -2239,6 +2244,8 @@ which may be executed later.
 
 
 
+
+
 The type  may be an interface or non-interface type.
 
 
@@ -3418,9 +3425,8 @@ Statements control execution.
 Terminating statements
 
 
-A terminating statement prevents execution of all statements that lexically
-appear after it in the same block. The following statements
-are terminating:
+A terminating statement interrupts the regular flow of control in
+a block. The following statements are terminating:
 
 
 
@@ -5162,7 +5168,6 @@ For a variable  of array type:  is the same as
 
 
 A struct or array type has size zero if it contains no fields (or elements, respectively) that have a size greater than zero. Two distinct zero-size variables may have the same address in memory.
-
 
 
 

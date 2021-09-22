@@ -916,6 +916,7 @@ intermediate	jj	o
 internal	jj	o
 interpretation	nn	o
 interpreted	vbn	o
+interrupts	vbz	o
 introduce	vb	o
 introduced	vbn	o
 introducing	vbg	o
@@ -1191,7 +1192,6 @@ present	jj	o
 present	vb	o
 presented	vbn	o
 preventing	vbg	o
-prevents	vbz	o
 previous	jj	o
 previously	rb	o
 primary	jj	o
