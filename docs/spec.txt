@@ -1,13 +1,4 @@
 
-
-
-
-
-
-  
-
-
-
   
 
 
@@ -20,6 +11,28 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+Earlier version
+
+
+For the pre-Go1.18 specification without generics support see
+The Go Programming Language Specification.
+
+
+
+
+[For reviewers: Sections where we know of missing prose are marked like this. The markers will be removed before the release.]
 
 
 Introduction
@@ -262,7 +275,7 @@ The following character sequences represent operators
 *    ^     *=    ^=     <-    >     >=    {    }
 /    <<    /=    <<=    ++    =     :=    ,    ;
 %    >>    %=    >>=    --    !     ...   .    :
-     &^          &^=
+     &^          &^=          ~
 
 
 Integer literals
@@ -496,7 +509,7 @@ an identifier denoting a constant,
 a constant expression,
 a conversion with a result that is a constant, or
 the result value of some built-in functions such as
- applied to any value,
+ applied to certain values,
  or  applied to
 some expressions,
  and  applied to a complex constant
@@ -533,6 +546,8 @@ assignment or as an
 operand in an expression.
 It is an error if the constant value
 cannot be represented as a value of the respective type.
+If the type is a type parameter, the constant is converted into a non-constant
+value of the type parameter.
 
 
 
@@ -636,59 +651,26 @@ Types
 
 
 A type determines a set of values together with operations and methods specific
-to those values. A type may be denoted by a type name, if it has one,
-or specified using a type literal, which composes a type from existing types.
+to those values. A type may be denoted by a type name, if it has one, which must be
+followed by type arguments if the type is generic.
+A type may also be specified using a type literal, which composes a type
+from existing types.
 
 
 
 
 
 The language predeclares certain type names.
-Others are introduced with type declarations.
+Others are introduced with type declarations
+or type parameter lists.
 Composite types—array, struct, pointer, function,
 interface, slice, map, and channel types—may be constructed using
 type literals.
 
 
 
-Each type  has an underlying type: If 
-is one of the predeclared boolean, numeric, or string types, or a type literal,
-the corresponding underlying
-type is  itself. Otherwise, 's underlying type
-is the underlying type of the type to which  refers in its
-type declaration.
-
-
-
-
-
-The underlying type of , , , ,
-and  is .
-The underlying type of , , and  is .
-
-
-Method sets
-
-A type has a (possibly empty) method set associated with it.
-The method set of an interface type is its interface.
-The method set of any other type  consists of all
-methods declared with receiver type .
-The method set of the corresponding pointer type 
-is the set of all methods declared with receiver  or 
-(that is, it also contains the method set of ).
-Further rules apply to structs containing embedded fields, as described
-in the section on struct types.
-Any other type has an empty method set.
-In a method set, each method must have a
-unique
-non-blank method name.
-
-
-
-The method set of a type determines the interfaces that the
-type implements
-and the methods that can be called
-using a receiver of that type.
+Predeclared types, defined types, and type parameters are called named types.
+An alias denotes a named type if the type given in the alias declaration is a named type.
 
 
 Boolean types
@@ -703,7 +685,9 @@ it is a defined type.
 Numeric types
 
 
-A numeric type represents sets of integer or floating-point values.
+An integer, floating-point, or complex type
+represents the set of integer, floating-point, or complex values, respectively.
+They are collectively called numeric types.
 The predeclared architecture-independent numeric types are:
 
 
@@ -733,7 +717,7 @@ two's complement arithmetic.
 
 
 
-There is also a set of predeclared numeric types with implementation-specific sizes:
+There is also a set of predeclared integer types with implementation-specific sizes:
 
 
 uint     either 32 or 64 bits
@@ -984,13 +968,12 @@ may be invoked with zero or more arguments for that parameter.
 
 
 
-
 Interface types
 
 
-An interface type specifies a method set called its interface.
-A variable of interface type can store a value of any type with a method set
-that is any superset of the interface. Such a type is said to
+An interface type defines a type set.
+A variable of interface type can store a value of any type that is in the type
+set of the interface. Such a type is said to
 implement the interface.
 The value of an uninitialized variable of interface type is .
 
@@ -998,8 +981,21 @@ The value of an uninitialized variable of interface type is .
 
 
 
-An interface type may specify methods explicitly through method specifications,
-or it may embed methods of other interfaces through interface type names.
+An interface type is specified by a list of interface elements.
+An interface element is either a method or a type element,
+where a type element is a union of one or more type terms.
+A type term is either a single type or a single underlying type.
+
+
+Basic interfaces
+
+
+In its most basic form an interface specifies a (possibly empty) list of methods.
+The type set defined by such an interface is the set of types which implement all of
+those methods, and the corresponding method set consists
+exactly of the methods specified by the interface.
+Interfaces whose type sets can be defined entirely by a list of methods are called
+basic interfaces.
 
 
 
@@ -1027,11 +1023,15 @@ then the  interface is implemented by both  and
 
 
 
-A type implements any interface comprising any subset of its methods
-and may therefore implement several distinct interfaces. For
-instance, all types implement the empty interface:
+Every type that is a member of the type set of an interface implements that interface.
+Any given type may implement several distinct interfaces.
+For instance, all types implement the empty interface which stands for the set of all types:
 
 
+
+
+
+For convenience, the predeclared type  is an alias for the empty interface.
 
 
 
@@ -1053,31 +1053,137 @@ they implement the  interface as well
 as the  interface.
 
 
+Embedded interfaces
 
-An interface  may use a (possibly qualified) interface type
-name  in place of a method specification. This is called
+
+In a slightly more general form
+an interface  may use a (possibly qualified) interface type
+name  as an interface element. This is called
 embedding interface  in .
-The method set of  is the union
-of the method sets of ’s explicitly declared methods and of
-’s embedded interfaces.
+The type set of  is the intersection of the type sets
+defined by 's explicitly declared methods and the type sets
+of ’s embedded interfaces.
+In other words, the type set of  is the set of all types that implement all the
+explicitly declared methods of  and also all the methods of
+.
 
 
 
 
 
-A union of method sets contains the (exported and non-exported)
-methods of each method set exactly once, and methods with the
+When embedding interfaces, methods with the
 same names must
 have identical signatures.
 
 
 
 
-
-An interface type  may not embed itself
-or any interface type that embeds , recursively.
+General interfaces
 
 
+In their most general form, an interface element may also be an arbitrary type term
+, or a term of the form  specifying the underlying type ,
+or a union of terms .
+Together with method specifications, these elements enable the precise
+definition of an interface's type set as follows:
+
+
+
+	The type set of the empty interface is the set of all non-interface types.
+	
+
+	The type set of a non-empty interface is the intersection of the type sets
+		of its interface elements.
+	
+
+	The type set of a method specification is the set of types
+		whose method sets include that method.
+	
+
+	The type set of a non-interface type term is the set consisting
+		of just that type.
+	
+
+	The type set of a term of the form 
+		is the set of types whose underlying type is .
+	
+
+	The type set of a union of terms
+		
+		is the union of the type sets of the terms.
+	
+
+
+
+By construction, an interface's type set never contains an interface type.
+
+
+
+
+
+In a term of the form , the underlying type of 
+must be itself, and  cannot be an interface.
+
+
+
+
+
+Union elements denote unions of type sets:
+
+
+
+
+
+In a union, a term cannot be a type parameter, and the type sets of all
+non-interface terms must be pairwise disjoint (the pairwise intersection of the type sets must be empty).
+Given a type parameter :
+
+
+
+
+
+Implementation restriction:
+A union with more than one term cannot contain the
+predeclared identifier 
+or interfaces that specify methods, or embed  or interfaces
+that specify methods.
+
+
+
+Interfaces that are not basic may only be used as type
+constraints, or as elements of other interfaces used as constraints.
+They cannot be the types of values or variables, or components of other,
+non-interface types.
+
+
+
+
+
+An interface type  may not embed any type element
+that is, contains, or embeds , recursively.
+
+
+
+
+Implementing an interface
+
+
+A type  implements an interface  if
+
+
+
+
+	 is not an interface and is an element of the type set of ; or
+
+
+	 is an interface and the type set of  is a subset of the
+	type set of .
+
+
+
+
+A value  of type  implements an interface if 
+implements the interface.
 
 
 Map types
@@ -1099,7 +1205,6 @@ slice.
 If the key type is an interface type, these
 comparison operators must be defined for the dynamic key values;
 failure will cause a run-time panic.
-
 
 
 
@@ -1144,8 +1249,8 @@ The value of an uninitialized channel is .
 
 
 The optional  operator specifies the channel direction,
-send or receive. If no direction is given, the channel is
-bidirectional.
+send or receive. If a direction is given, the channel is directional,
+otherwise it is bidirectional.
 A channel may be constrained only to send or only to receive by
 assignment or
 explicit conversion.
@@ -1203,6 +1308,142 @@ received in the order sent.
 
 Properties of types and values
 
+Underlying types
+
+
+Each type  has an underlying type: If 
+is one of the predeclared boolean, numeric, or string types, or a type literal,
+the corresponding underlying type is  itself.
+Otherwise, 's underlying type is the underlying type of the
+type to which  refers in its type
+declaration. The underlying type of a type parameter is the
+underlying type of its type constraint, which
+is always an interface.
+
+
+
+
+
+The underlying type of , , , ,
+and  is .
+The underlying type of , , and  is .
+The underlying type of  is .
+
+
+Core types
+
+
+Each non-interface type  has a core type, which is the same as the
+underlying type of .
+
+
+
+An interface  has a core type if one of the following
+conditions is satisfied:
+
+
+
+
+There is a single type  which is the underlying type
+of all types in the type set of ; or
+
+
+the type set of  contains only channel types
+with identical element type , and all directional channels have the same
+direction.
+
+
+
+
+All other interfaces don't have a core type.
+
+
+
+The core type of an interface is, depending on the condition that is satisfied, either:
+
+
+
+
+the type ; or
+
+
+the type  if  contains only bidirectional
+channels, or the type  or 
+depending on the direction of the directional channels present.
+
+
+
+
+By definition, a core type is never a defined type,
+type parameter, or
+interface type.
+
+
+
+Examples of interfaces with core types:
+
+
+
+
+
+Examples of interfaces whithout core types:
+
+
+
+
+Specific types
+
+
+[The definition of specific types is not quite correct yet.]
+
+
+
+An interface specification that contains type elements
+defines a (possibly empty) set of specific types.
+Loosely speaking, these are the types  that appear in the
+interface definition in terms of the form , ,
+or in unions of such terms.
+
+
+
+More precisely, for a given interface, the set of specific types corresponds to
+the set 𝑅 of representative types of the interface, if 𝑅 is non-empty and finite.
+Otherwise, if 𝑅 is empty or infinite, the interface has no specific types.
+
+
+
+For a given interface, type element or type term, the set 𝑅 of representative types is defined as follows:
+
+
+
+	For an interface with no type elements, 𝑅 is the (infinite) set of all types.
+	
+
+	For an interface with type elements,
+		𝑅 is the intersection of the representative types of its type elements.
+	
+
+	For a non-interface type term  or a term of the form ,
+		𝑅 is the set consisting of the type .
+	
+
+	For a union of terms
+		,
+		𝑅 is the union of the representative types of the terms.
+	
+
+
+
+An interface may have specific types even if its type set
+is empty.
+
+
+
+Examples of interfaces with their specific types:
+
+
+
+
 Type identity
 
 
@@ -1210,7 +1451,7 @@ Two types are either identical or different.
 
 
 
-A defined type is always different from any other type.
+A named type is always different from any other type.
 Otherwise, two types are identical if their underlying type literals are
 structurally equivalent; that is, they have the same literal structure and corresponding
 components have identical types. In detail:
@@ -1235,15 +1476,17 @@ components have identical types. In detail:
 	    identical, and either both functions are variadic or neither is.
 	    Parameter and result names are not required to match.
 
-	Two interface types are identical if they have the same set of methods
-	    with the same names and identical function types.
-	    Non-exported method names from different
-	    packages are always different. The order of the methods is irrelevant.
+	Two interface types are identical if they define the same type set.
+	
 
 	Two map types are identical if they have identical key and element types.
 
 	Two channel types are identical if they have identical element types and
 	    the same direction.
+
+	Two instantiated types are identical if
+	    their defined types and all type arguments are identical.
+	
 
 
 
@@ -1262,8 +1505,13 @@ these types are identical:
  and  are different because they are new types
 created by distinct type definitions;
  and 
-are different because  is different from .
-
+are different because  is different from ;
+and  and  are different because they are different
+type parameters.
+ and  are
+different because the former is an instantiated
+defined type while the latter is a type literal
+(but they are still assignable).
 
 
 Assignability
@@ -1280,20 +1528,21 @@ A value  is assignable to a variable of type
 
 's type  and  have identical
 underlying types and at least one of 
-or  is not a defined type.
+or  is not a named type.
 
 
- is an interface type and
+'s type  and  are channel types with
+identical element types,  is a bidirectional channel,
+and at least one of  or  is not a named type.
+
+
+ is an interface type, but not a type parameter, and
  implements .
 
 
- is a bidirectional channel value,  is a channel type,
-'s type  and  have identical element types,
-and at least one of  or  is not a defined type.
-
-
  is the predeclared identifier  and 
-is a pointer, function, slice, map, channel, or interface type.
+is a pointer, function, slice, map, channel, or interface type,
+but not a type parameter.
 
 
  is an untyped constant
@@ -1303,11 +1552,36 @@ by a value of type .
 
 
 
+Additionally, if  type  or  are type parameters
+with specific types, 
+is assignable to a variable of type  if one of the following conditions applies:
+
+
+
+
+ is the predeclared identifier ,  is
+a type parameter, and  is assignable to each specific type of
+.
+
+
+ is not a named type,  is
+a type parameter, and  is assignable to each specific type of
+.
+
+
+ is a type parameter and  is not a named type,
+and values of each specific type of  are assignable
+to .
+
+
+
 Representability
 
 
 A constant  is representable
-by a value of type  if one of the following conditions applies:
+by a value of type ,
+where  is not a type parameter,
+if one of the following conditions applies:
 
 
 
@@ -1331,8 +1605,50 @@ are representable by values of 's component type ( or
 
 
 
+If  is a type parameter with specific types,
+ is representable by a value of type  if  is representable
+by a value of each specific type of .
 
 
+
+
+
+
+Method sets
+
+
+The method set of a type determines the methods that can be
+called on an operand of that type.
+Every type has a (possibly empty) method set associated with it:
+
+
+
+The method set of a defined type  consists of all
+methods declared with receiver type .
+
+
+
+The method set of a pointer to a defined type 
+(where  is neither a pointer nor an interface)
+is the set of all methods declared with receiver  or .
+
+
+The method set of an interface type is the intersection
+of the method sets of each type in the interface's type set
+(the resulting method set is usually just the set of declared methods in the interface).
+
+
+
+
+Further rules apply to structs (and pointer to structs) containing embedded fields,
+as described in the section on struct types.
+Any other type has an empty method set.
+
+
+
+In a method set, each method must have a
+unique
+non-blank method name.
 
 
 Blocks
@@ -1419,6 +1735,15 @@ Go is lexically scoped using blocks:
 	The scope of an identifier denoting a method receiver, function parameter,
 	    or result variable is the function body.
 
+	The scope of an identifier denoting a type parameter of a generic function
+	    or declared by a method receiver is the function body and all parameter lists of the
+	    function.
+	
+
+	The scope of an identifier denoting a type parameter of a generic type
+	    begins after the name of the generic type and ends at the end
+	    of the TypeSpec.
+
 	The scope of a constant or variable identifier declared
 	    inside a function begins at the end of the ConstSpec or VarSpec
 	    (ShortVarDecl for short variable declarations)
@@ -1475,7 +1800,8 @@ The following identifiers are implicitly declared in the
 universe block:
 
 Types:
-	bool byte complex64 complex128 error float32 float64
+	any bool byte comparable
+	complex64 complex128 error float32 float64
 	int int8 int16 int32 int64 rune string
 	uint uint8 uint16 uint32 uint64 uintptr
 
@@ -1488,7 +1814,6 @@ Zero value:
 Functions:
 	append cap close complex copy delete imag len
 	make new panic print println real recover
-
 
 
 Exported identifiers
@@ -1506,7 +1831,6 @@ An identifier is exported if both:
 
 
 All other identifiers are not exported.
-
 
 
 Uniqueness of identifiers
@@ -1534,7 +1858,8 @@ right.
 
 
 If the type is present, all constants take the type specified, and
-the expressions must be assignable to that type.
+the expressions must be assignable to that type,
+which must not be a type parameter.
 If the type is omitted, the constants take the
 individual types of the corresponding expressions.
 If the expression values are untyped constants,
@@ -1614,8 +1939,8 @@ Type definitions
 
 
 A type definition creates a new, distinct type with the same
-underlying type and operations as the given type,
-and binds an identifier to it.
+underlying type and operations as the given type
+and binds an identifier, the type name, to it.
 
 
 
@@ -1643,6 +1968,134 @@ or string types and associate methods with them:
 
 
 
+
+
+If the type definition specifies type parameters,
+the type name denotes a generic type.
+Generic types must be instantiated when they
+are used.
+
+
+
+
+
+The given type cannot be a type parameter in a type definition.
+
+
+
+
+
+A generic type may also have methods associated with it. In this case,
+the method receivers must declare the same number of type parameters as
+present in the generic type definition.
+
+
+
+
+Type parameter lists
+
+
+A type parameter list declares the type parameters of a generic function or type declaration.
+The type parameter list looks like an ordinary function parameter list
+except that the type parameter names must all be present and the list is enclosed
+in square brackets rather than parentheses.
+
+
+
+
+
+All non-blank names in the list must be unique.
+Each name declares a type parameter, which is a new and different named type
+that acts as a place holder for an (as of yet) unknown type in the declaration.
+The type parameter is replaced with a type argument upon
+instantiation of the generic function or type.
+
+
+
+
+
+Just as each ordinary function parameter has a parameter type, each type parameter
+has a corresponding (meta-)type which is called its
+type constraint.
+
+
+
+A parsing ambiguity arises when the type parameter list for a generic type
+declares a single type parameter with a type constraint of the form 
+or  where  is not a (possibly parenthesized)
+type literal:
+
+
+
+
+
+In these rare cases, the type parameter declaration is indistinguishable from
+the expressions  or  and the type declaration
+is parsed as an array type declaration.
+To resolve the ambiguity, embed the constraint in an interface or use a trailing
+comma:
+
+
+
+
+
+Type parameters may also be declared by the receiver specification
+of a method declaration associated
+with a generic type.
+
+
+Type constraints
+
+
+A type constraint is an interface that defines the
+set of permissible type arguments for the respective type parameter and controls the
+operations supported by values of that type parameter.
+
+
+
+
+
+If the constraint is an interface literal of the form  where
+ is an embedded type element (not a method), in a type parameter list
+the enclosing  may be omitted for convenience:
+
+
+
+
+
+
+
+The predeclared
+interface type 
+denotes the set of all concrete (non-interface) types that are
+comparable. Specifically,
+a type  implements  if:
+
+
+
+
+	 is not an interface type and  supports the operations
+	 and ; or
+
+
+	 is an interface type and each type in 's
+	type set implements .
+
+
+
+
+Even though interfaces that are not type parameters can be
+compared
+(possibly causing a run-time panic) they do not implement
+.
+
+
+
+
+
+The  interface and interfaces that (directly or indirectly) embed
+ may only be used as type constraints. They cannot be the types of
+values or variables, or components of other, non-interface types.
 
 
 Variable declarations
@@ -1722,6 +2175,8 @@ they can be used to declare local temporary variables.
 Function declarations
 
 
+
+
 A function declaration binds an identifier, the function name,
 to a function.
 
@@ -1737,8 +2192,18 @@ a terminating statement.
 
 
 
-A function declaration may omit the body. Such a declaration provides the
-signature for a function implemented outside Go, such as an assembly routine.
+If the function declaration specifies type parameters,
+the function name denotes a generic function.
+Generic functions must be instantiated when they
+are used.
+
+
+
+
+
+A function declaration without type parameters may omit the body.
+Such a declaration provides the signature for a function implemented outside Go,
+such as an assembly routine.
 
 
 
@@ -1757,9 +2222,10 @@ and associates the method with the receiver's base type.
 The receiver is specified via an extra parameter section preceding the method
 name. That parameter section must declare a single non-variadic parameter, the receiver.
 Its type must be a defined type  or a
-pointer to a defined type .  is called the receiver
-base type. A receiver base type cannot be a pointer or interface type and
-it must be defined in the same package as the method.
+pointer to a defined type , possibly followed by a list of type parameter
+names  enclosed in square brackets.
+ is called the receiver base type. A receiver base type cannot be
+a pointer or interface type and it must be defined in the same package as the method.
 The method is said to be bound to its receiver base type and the method name
 is visible only within selectors for type 
 or .
@@ -1792,14 +2258,22 @@ to the base type .
 
 
 
-The type of a method is the type of a function with the receiver as first
-argument.  For instance, the method  has type
+If the receiver base type is a generic type, the
+receiver specification must declare corresponding type parameters for the method
+to use. This makes the receiver type parameters available to the method.
 
 
 
+Syntactically, this type parameter declaration looks like an
+instantiation of the receiver base type, except that
+the type arguments are the type parameters being declared, one for each type parameter
+of the receiver base type.
+The type parameter names do not need to match their corresponding parameter names in the
+receiver base type definition, and all non-blank parameter names must be unique in the
+receiver parameter section and the method signature.
+The receiver type parameter constraints are implied by the receiver base type definition:
+corresponding type parameters have corresponding constraints.
 
-
-However, a function declared this way is not a method.
 
 
 
@@ -1823,10 +2297,16 @@ or a parenthesized expression.
 
 
 
+
+
+An operand name denoting a generic function
+may be followed by a list of type arguments; the
+resulting operand is an instantiated function.
+
+
+
 The blank identifier may appear as an
 operand only on the left-hand side of an assignment.
-
-
 
 
 Qualified identifiers
@@ -1851,8 +2331,7 @@ declared in the package block of that package.
 Composite literals
 
 
-Composite literals construct values for structs, arrays, slices, and maps
-and create a new value each time they are evaluated.
+Composite literals construct new composite values each time they are evaluated.
 They consist of the type of the literal followed by a brace-bound list of elements.
 Each element may optionally be preceded by a corresponding key.
 
@@ -1860,11 +2339,12 @@ Each element may optionally be preceded by a corresponding key.
 
 
 
-The LiteralType's underlying type must be a struct, array, slice, or map type
+The LiteralType's core type 
+must be a struct, array, slice, or map type
 (the grammar enforces this constraint except when the type is given
 as a TypeName).
 The types of the elements and keys must be assignable
-to the respective field, element, and key types of the literal type;
+to the respective field, element, and key types of type ;
 there is no additional conversion.
 The key is interpreted as a field name for struct literals,
 an index for array and slice literals, and a key for map literals.
@@ -2004,6 +2484,7 @@ Function literals
 
 
 A function literal represents an anonymous function.
+Function literals cannot declare type parameters.
 
 
 
@@ -2037,6 +2518,10 @@ Primary expressions are the operands for unary and binary expressions.
 
 
 Selectors
+
+
+[This section is missing rules for x.f where x's type is a type parameter and f is a field.]
+
 
 
 For a primary expression 
@@ -2079,8 +2564,7 @@ The following rules apply to selectors:
 For a value  of type  or 
 where  is not a pointer or interface type,
  denotes the field or method at the shallowest depth
-in  where there
-is such an .
+in  where there is such an .
 If there is not exactly one 
 with shallowest depth, the selector expression is illegal.
 
@@ -2326,7 +2810,8 @@ The following rules apply:
 If  is not a map:
 
 
-	the index  must be of integer type or an untyped constant
+	the index  must be an untyped constant or its
+	    core type must be an integer
 	a constant index must be non-negative and
 	    representable by a value of type 
 	a constant index that is untyped is given type 
@@ -2391,6 +2876,26 @@ For  of map type :
 
 
 
+For  of type parameter type :
+
+
+	 must have specific types.
+	The index expression  must be valid for values
+	    of all specific types of .
+	The element types of all specific types of  must be identical.
+	    In this context, the element type of a string type is .
+	If there is a map type among the specific types of ,
+	    all specific types must be map types, and the respective key types
+	    must be all identical.
+	 is the array, slice, or string element at index ,
+	    or the map element with key  of the type argument
+	    that  is instantiated with, and the type of  is
+	    the type of the (identical) element types.
+	 may not be assigned to if the specific types of 
+	    include string types.
+
+
+
 Otherwise  is illegal.
 
 
@@ -2424,13 +2929,15 @@ and high bound, and a full form that also specifies a bound on the capacity.
 Simple slice expressions
 
 
-For a string, array, pointer to array, or slice , the primary expression
+The primary expression
 
 
 
 
 
-constructs a substring or slice. The indices  and
+constructs a substring or slice. The core type of
+ must be a string, array, pointer to array, or slice.
+The indices  and
  select which elements of operand  appear
 in the result. The result has indices starting at 0 and length equal to
  - .
@@ -2490,7 +2997,7 @@ array with the operand.
 Full slice expressions
 
 
-For an array, pointer to array, or slice  (but not a string), the primary expression
+The primary expression
 
 
 
@@ -2499,6 +3006,8 @@ For an array, pointer to array, or slice  (but not a string), the primary expres
 constructs a slice of the same type, and with the same length and elements as the simple slice
 expression . Additionally, it controls the resulting slice's capacity
 by setting it to . Only the first index may be omitted; it defaults to 0.
+The core type of  must be an array, pointer to array,
+or slice (but not a string).
 After slicing the array 
 
 
@@ -2530,8 +3039,9 @@ If the indices are out of range at run time, a run-time panic occurs.
 Type assertions
 
 
-For an expression  of interface type
-and a type , the primary expression
+For an expression  of interface type,
+but not a type parameter, and a type ,
+the primary expression
 
 
 
@@ -2579,8 +3089,8 @@ No run-time panic occurs in this case.
 Calls
 
 
-Given an expression  of function type
-,
+Given an expression  with a core type
+ of function type,
 
 
 
@@ -2597,6 +3107,12 @@ is specified as a selector upon a value of the receiver type for
 the method.
 
 
+
+
+
+If  denotes a generic function, it must be
+instantiated before it can be called
+or used as a function value.
 
 
 
@@ -2688,6 +3204,423 @@ within ,  will have the same value as
 with the same underlying array.
 
 
+Instantiations
+
+
+A generic function or type is instantiated by substituting type arguments
+for the type parameters.
+Instantiation proceeds in two phases:
+
+
+
+
+Each type argument is substituted for its corresponding type parameter in the generic
+declaration.
+This substitution happens across the entire function or type declaration,
+including the type parameter list itself and any types in that list.
+
+
+
+After substitution, each type argument must implement
+the constraint (instantiated, if necessary)
+of the corresponding type parameter. Otherwise instantiation fails.
+
+
+
+
+Instantiating a type results in a new non-generic named type;
+instantiating a function produces a new non-generic function.
+
+
+
+
+
+Type arguments may be provided explicitly, or they may be partially or completely
+inferred.
+A partially provided type argument list cannot be empty; there must be at least the
+first argument.
+
+
+
+
+
+A partial type argument list specifies a prefix of the full list of type arguments, leaving
+the remaining arguments to be inferred. Loosely speaking, type arguments may be omitted from
+"right to left".
+
+
+
+Generic types, and generic functions that are not called,
+require a type argument list for instantiation; if the list is partial, all
+remaining type arguments must be inferrable.
+Calls to generic functions may provide a (possibly partial) type
+argument list, or may omit it entirely if the omitted type arguments are
+inferrable from the ordinary (non-type) function arguments.
+
+
+
+
+Type inference
+
+
+Missing type arguments may be inferred by a series of steps, described below.
+Each step attempts to use known information to infer additional type arguments.
+Type inference stops as soon as all type arguments are known.
+After type inference is complete, it is still necessary to substitute all type arguments
+for type parameters and verify that each type argument
+implements the relevant constraint;
+it is possible for an inferred type argument to fail to implement a constraint, in which
+case instantiation fails.
+
+
+
+Type inference is based on
+
+
+
+
+	a type parameter list
+
+
+	a substitution map M initialized with the known type arguments, if any
+
+
+	a (possibly empty) list of ordinary function arguments (in case of a function call only)
+
+
+
+
+and then proceeds with the following steps:
+
+
+
+
+	apply function argument type inference
+	to all typed ordinary function arguments
+
+
+	apply constraint type inference
+
+
+	apply function argument type inference to all untyped ordinary function arguments
+	using the default type for each of the untyped function arguments
+
+
+	apply constraint type inference
+
+
+
+
+If there are no ordinary or untyped function arguments, the respective steps are skipped.
+Constraint type inference is skipped if the previous step didn't infer any new type arguments,
+but it is run at least once if there are missing type arguments.
+
+
+
+The substitution map M is carried through all steps, and each step may add entries to M.
+The process stops as soon as M has a type argument for each type parameter or if an inference step fails.
+If an inference step fails, or if M is still missing type arguments after the last step, type inference fails.
+
+
+Type unification
+
+
+Type inference is based on type unification. A single unification step
+applies to a substitution map and two types, either
+or both of which may be or contain type parameters. The substitution map tracks
+the known (explicitly provided or already inferred) type arguments: the map
+contains an entry  →  for each type
+parameter  and corresponding known type argument .
+During unification, known type arguments take the place of their corresponding type
+parameters when comparing types. Unification is the process of finding substitution
+map entries that make the two types equivalent.
+
+
+
+For unification, two types that don't contain any type parameters from the current type
+parameter list are equivalent
+if they are identical, or if they are channel types that are identical ignoring channel
+direction, or if their underlying types are equivalent.
+
+
+
+Unification works by comparing the structure of pairs of types: their structure
+disregarding type parameters must be identical, and types other than type parameters
+must be equivalent.
+A type parameter in one type may match any complete subtype in the other type;
+each successful match causes an entry to be added to the substitution map.
+If the structure differs, or types other than type parameters are not equivalent,
+unification fails.
+
+
+
+
+
+For example, if  and  are type parameters,
+ can be unified with any of the following:
+
+
+
+
+
+On the other hand,  cannot be unified with any of
+
+
+
+
+
+As an exception to this general rule, because a defined type
+ and a type literal  are never equivalent,
+unification compares the underlying type of  with  instead.
+For example, given the defined type
+
+
+
+
+
+and the type literal , unification compares  with
+ and adds an entry  →  to
+the substitution map.
+
+
+Function argument type inference
+
+
+
+
+Function argument type inference infers type arguments from function arguments:
+if a function parameter is declared with a type  that uses
+type parameters,
+unifying the type of the corresponding
+function argument with  may infer type arguments for the type
+parameters used by .
+
+
+
+For instance, given the generic function
+
+
+
+
+
+and the call
+
+
+
+
+
+the type argument for  can be inferred from the function argument
+ by unifying the type of  with the corresponding
+parameter type:  and 
+match in structure and  matches with .
+This adds the entry  →  to the
+substitution map.
+Untyped arguments, such as the second function argument  here, are ignored
+in the first round of function argument type inference and only considered if there are
+unresolved type parameters left.
+
+
+
+Function argument type inference can be used when the function has ordinary parameters
+whose types are defined using the function's type parameters. Inference happens in two
+separate phases; each phase operates on a specific list of (parameter, argument) pairs:
+
+
+
+
+	The list Lt contains all (parameter, argument) pairs where the parameter
+	type uses type parameters and where the function argument is typed.
+
+
+	The list Lu contains all remaining pairs where the parameter type is a single
+	type parameter. In this list, the respective function arguments are untyped.
+
+
+
+
+Any other (parameter, argument) pair is ignored.
+
+
+
+By construction, the arguments of the pairs in Lu are untyped constants
+(or the untyped boolean result of a comparison). And because default types
+of untyped values are always predeclared non-composite types, they can never match against
+a composite type, so it is sufficient to only consider parameter types that are single type
+parameters.
+
+
+
+Each list is processed in a separate phase:
+
+
+
+
+	In the first phase, the parameter and argument types of each pair in Lt
+	are unified. If unification succeeds for a pair, it may yield new entries that
+	are added to the substitution map M. If unification fails, type inference
+	fails.
+
+
+	The second phase considers the entries of list Lu. Type parameters for
+	which the type argument has already been determined are ignored in this phase.
+	For each remaining pair, the parameter type (which is a single type parameter) and
+	the default type of the corresponding untyped argument is
+	unified. If unification fails, type inference fails.
+
+
+
+
+While unification is successful, processing of each list continues until all list elements
+are considered, even if all type arguments are inferred before the last list element has
+been processed.
+
+
+
+Example:
+
+
+
+
+
+In the example , processing the function argument 
+yields the substitution map entry  → . Because
+processing continues until all untyped arguments are considered, an error is reported. This
+ensures that type inference does not depend on the order of the untyped arguments.
+
+
+Constraint type inference
+
+
+Constraint type inference infers type arguments by considering type constraints.
+If a type parameter  has a constraint with a
+core type ,
+unifying  with 
+may infer additional type arguments, either the type argument for ,
+or if that is already known, possibly the type arguments for type parameters
+used in .
+
+
+
+For instance, consider the type parameter list with type parameters  and
+:
+
+
+
+
+
+Constraint type inference can deduce the type of  from the type argument
+for  because  is a type parameter in the core type
+ of .
+If the type argument is :
+
+
+
+
+
+unifying the underlying type of  with the core type means
+unifying  with . That unification succeeds and yields
+the substitution map entry
+ → .
+Thus, in this example, constraint type inference can infer the second type argument from the
+first one.
+
+
+
+Using the core type of a constraint may lose some information: In the (unlikely) case that
+the constraint's type set contains a single defined type
+, the corresponding core type is 's underlying type rather than
+ itself. In this case, constraint type inference may succeed but instantiation
+will fail because the inferred type is not in the type set of the constraint.
+Thus, constraint type inference uses the adjusted core type of
+a constraint: if the type set contains a single type, use that type; otherwise use the
+constraint's core type.
+
+
+
+Generally, constraint type inference proceeds in two phases: Starting with a given
+substitution map M
+
+
+
+
+For all type parameters with an adjusted core type, unify the type parameter with that
+type. If any unification fails, constraint type inference fails.
+
+
+
+At this point, some entries in M may map type parameters to other
+type parameters or to types containing type parameters. For each entry
+ →  in M where  is or
+contains type parameters  for which there exist entries
+ →  in M, substitute those
+ with the respective  in .
+Stop when no further substitution is possible.
+
+
+
+
+The result of constraint type inference is the final substitution map M from type
+parameters  to type arguments  where no type parameter 
+appears in any of the .
+
+
+
+For instance, given the type parameter list
+
+
+
+
+
+and the single provided type argument  for type parameter ,
+the initial substitution map M contains the entry  → .
+
+
+
+In the first phase, the type parameters  and  are unified
+with the core type of their respective constraints. This adds the entries
+ →  and  → 
+to M.
+
+
+At this point there are two entries in M where the right-hand side
+is or contains type parameters for which there exists other entries in M:
+ and .
+In the second phase, these type parameters are replaced with their respective
+types. It doesn't matter in which order this happens. Starting with the state
+of M after the first phase:
+
+
+
+ → ,
+ → ,
+ → 
+
+
+
+Replace  on the right-hand side of → with :
+
+
+
+ → ,
+ → ,
+ → 
+
+
+
+Replace  on the right-hand side of → with :
+
+
+
+ → ,
+ → ,
+ → 
+
+
+
+At this point no further substitution is possible and the map is full.
+Therefore,  represents the final map of type parameters
+to type arguments for the given type parameter list.
+
 
 Operators
 
@@ -2756,8 +3689,9 @@ Arithmetic operators
 
 Arithmetic operators apply to numeric values and yield a result of the same
 type as the first operand. The four standard arithmetic operators (,
-, , ) apply to integer,
-floating-point, and complex types;  also applies to strings.
+, , ) apply to
+integer, floating-point, and
+complex types;  also applies to strings.
 The bitwise logical and shift operators apply to integers only.
 
 
@@ -2775,6 +3709,27 @@ The bitwise logical and shift operators apply to integers only.
 <<   left shift             integer << integer >= 0
 >>   right shift            integer >> integer >= 0
 
+
+
+Excluding shifts, if the operand type is a type parameter,
+it must have specific types, and the operator must
+apply to each specific type.
+The operands are represented as values of the type argument that the type parameter
+is instantiated with, and the operation is computed
+with the precision of that type argument. For example, given the function:
+
+
+
+
+
+the product  and the addition 
+are computed with  or  precision,
+respectively, depending on the type argument for .
+
+
+
+For shifts, the core type of both operands must be
+an integer.
 
 
 Integer operators
@@ -2851,6 +3806,7 @@ Loosely speaking, these unsigned integer operations
 discard high bits upon overflow, and programs may rely on "wrap around".
 
 
+
 For signed integers, the operations ,
 , , , and  may legally
 overflow and the resulting value exists and is deterministically defined
@@ -2858,7 +3814,6 @@ by the signed integer representation, the operation, and its operands.
 Overflow does not cause a run-time panic.
 A compiler may not optimize code under the assumption that overflow does
 not occur. For instance, it may not assume that  is always true.
-
 
 
 Floating-point operators
@@ -2899,7 +3854,6 @@ or the  assignment operator:
 
 
 String addition creates a new string by concatenating the operands.
-
 
 
 Comparison operators
@@ -3058,7 +4012,8 @@ will cause a run-time panic.
 Receive operator
 
 
-For an operand  of channel type,
+For an operand  whose core type is a
+channel,
 the value of the receive operation  is the value received
 from the channel . The channel direction must permit receive operations,
 and the type of the receive operation is the element type of the channel.
@@ -3123,9 +4078,29 @@ as for non-constant .
 
 
 
-Converting a constant yields a typed constant as result.
+Converting a constant to a type that is not a type parameter
+yields a typed constant.
 
 
+
+
+
+Converting a constant to a type parameter yields a non-constant value of that type,
+with the value represented as a value of the type argument that the type parameter
+is instantiated with.
+For example, given the function:
+
+
+
+
+
+the conversion  results in a non-constant value of type 
+and the value  is represented as a  or a 
+depending on the type argument for .
+Accordingly, if  is instantiated with a  type,
+the numeric value of the expression  will be computed
+with the same precision as the corresponding non-constant 
+addition.
 
 
 
@@ -3140,14 +4115,16 @@ in any of these cases:
 	
 	
 	ignoring struct tags (see below),
-	's type and  have identical
-	underlying types.
+	's type and  are not
+	type parameters but have
+	identical underlying types.
 	
 	
 	ignoring struct tags (see below),
 	's type and  are pointer types
-	that are not defined types,
-	and their pointer base types have identical underlying types.
+	that are not named types,
+	and their pointer base types are not type parameters but
+	have identical underlying types.
 	
 	
 	's type and  are both integer or floating
@@ -3170,6 +4147,28 @@ in any of these cases:
 
 
 
+Additionally, if  or 's type  are type
+parameters with specific types, 
+can also be converted to type  if one of the following conditions applies:
+
+
+
+
+Both  and  are type parameters and a value of each
+specific type of  can be converted to each specific type
+of .
+
+
+Only  is a type parameter and a value of each
+specific type of  can be converted to .
+
+
+Only  is a type parameter and  can be converted to each
+specific type of .
+
+
+
+
 Struct tags are ignored when comparing struct types
 for identity for the purpose of conversion:
 
@@ -3188,8 +4187,7 @@ of .
 
 There is no linguistic mechanism to convert between pointers and integers.
 The package 
-implements this functionality under
-restricted circumstances.
+implements this functionality under restricted circumstances.
 
 
 Conversions between numeric types
@@ -3462,7 +4460,8 @@ a block. The following statements are terminating:
 	A "for" statement in which:
 	
 	there are no "break" statements referring to the "for" statement, and
-	the loop condition is absent.
+	the loop condition is absent, and
+	the "for" statement does not use a range clause.
 	
 
 
@@ -3547,7 +4546,8 @@ Send statements
 
 
 A send statement sends a value on a channel.
-The channel expression must be of channel type,
+The channel expression's core type
+must be a channel,
 the channel direction must permit send operations,
 and the type of the value to be sent must be assignable
 to the channel's element type.
@@ -3801,7 +4801,8 @@ using the keyword  rather than an actual type:
 
 Cases then match actual types  against the dynamic type of the
 expression . As with type assertions,  must be of
-interface type, and each non-interface type
+interface type, but not a
+type parameter, and each non-interface type
  listed in a case must implement the type of .
 The types listed in the cases of a type switch must all be
 different.
@@ -3836,6 +4837,14 @@ the following type switch:
 
 
 could be rewritten:
+
+
+
+
+
+A type parameter or a generic type
+may be used as a type in a case. If upon instantiation that type turns
+out to duplicate another entry in the switch, the first matching case is chosen.
 
 
 
@@ -3912,7 +4921,8 @@ to corresponding iteration variables if present and then executes the block.
 
 
 The expression on the right in the "range" clause is called the range expression,
-which may be an array, pointer to an array, slice, string, map, or channel permitting
+its core type must be
+an array, pointer to an array, slice, string, map, or channel permitting
 receive operations.
 As with an assignment, if present the operands on the left must be
 addressable or map index expressions; they
@@ -3957,7 +4967,7 @@ For a string value, the "range" clause iterates over the Unicode code points
 in the string starting at byte index 0.  On successive iterations, the index value will be the
 index of the first byte of successive UTF-8-encoded code points in the string,
 and the second value, of type , will be the value of
-the corresponding code point.  If the iteration encounters an invalid
+the corresponding code point. If the iteration encounters an invalid
 UTF-8 sequence, the second value will be ,
 the Unicode replacement character, and the next iteration will advance
 a single byte in the string.
@@ -4316,7 +5326,8 @@ they cannot be used as function values.
 Close
 
 
-For a channel , the built-in function 
+For an argument  with a core type
+that is a channel, the built-in function 
 records that no more values will be sent on the channel.
 It is an error if  is a receive-only channel.
 Sending to or closing a closed channel causes a run-time panic.
@@ -4326,7 +5337,6 @@ sent values have been received, receive operations will return
 the zero value for the channel's type without blocking.
 The multi-valued receive operation
 returns a received value along with an indication of whether the channel is closed.
-
 
 
 Length and capacity
@@ -4344,10 +5354,22 @@ len(s)    string type      string length in bytes
           []T              slice length
           map[K]T          map length (number of defined keys)
           chan T           number of elements queued in channel buffer
+          type parameter   see below
 
 cap(s)    [n]T, *[n]T      array length (== n)
           []T              slice capacity
           chan T           channel buffer capacity
+          type parameter   see below
+
+
+
+If the argument type is a type parameter ,
+ must have specific types, and
+the call  (or  respectively) must be valid for
+each specific type of .
+The result is the length (or capacity, respectively) of the argument whose type
+corresponds to the type argument with which  was
+instantiated.
 
 
 
@@ -4407,23 +5429,24 @@ Making slices, maps and channels
 
 
 The built-in function  takes a type ,
-which must be a slice, map or channel type,
 optionally followed by a type-specific list of expressions.
+The core type of  must
+be a slice, map or channel.
 It returns a value of type  (not ).
 The memory is initialized as described in the section on
 initial values.
 
 
-Call             Type T     Result
+Call             Core type    Result
 
-make(T, n)       slice      slice of type T with length n and capacity n
-make(T, n, m)    slice      slice of type T with length n and capacity m
+make(T, n)       slice        slice of type T with length n and capacity n
+make(T, n, m)    slice        slice of type T with length n and capacity m
 
-make(T)          map        map of type T
-make(T, n)       map        map of type T with initial space for approximately n elements
+make(T)          map          map of type T
+make(T, n)       map          map of type T with initial space for approximately n elements
 
-make(T)          channel    unbuffered channel of type T
-make(T, n)       channel    buffered channel of type T, buffer size n
+make(T)          channel      unbuffered channel of type T
+make(T, n)       channel      buffered channel of type T, buffer size n
 
 
 
@@ -4458,20 +5481,19 @@ by the arguments overlaps.
 
 
 The variadic function 
-appends zero or more values 
-to  of type , which must be a slice type, and
-returns the resulting slice, also of type .
+appends zero or more values  to a slice 
+and returns the resulting slice.
+The core type of  must be a slice
+of the form .
 The values  are passed to a parameter of type 
-where  is the element type of
- and the respective
-parameter passing rules apply.
-As a special case,  also accepts a first argument
-assignable to type  with a second argument of
-string type followed by . This form appends the
-bytes of the string.
+and the respective parameter
+passing rules apply.
+As a special case, if the core type of  is ,
+ also accepts a second argument with core type 
+followed by . This form appends the bytes of the string.
 
 
-append(s S, x ...T) S  // T is the element type of S
+append(s S, x ...E) S  // E is the element type of the core type of S
 
 
 
@@ -4487,12 +5509,12 @@ Otherwise,  re-uses the underlying array.
 The function  copies slice elements from
 a source  to a destination  and returns the
 number of elements copied.
-Both arguments must have identical element type  and must be
-assignable to a slice of type .
+The core types of both arguments must be slices
+with identical element type.
 The number of elements copied is the minimum of
  and .
-As a special case,  also accepts a destination argument assignable
-to type  with a source argument of a string type.
+As a special case, if the destination's core type is ,
+ also accepts a source argument with core type .
 This form copies the bytes from the string into the byte slice.
 
 
@@ -4512,11 +5534,17 @@ Deletion of map elements
 
 The built-in function  removes the element with key
  from a map . The
-type of  must be assignable
+value  must be assignable
 to the key type of .
 
 
 delete(m, k)  // remove element m[k] from map m
+
+
+
+If the type of  is a type parameter,
+it must have specific types, all specific types
+must be maps, and they must all have identical key types.
 
 
 
@@ -4526,6 +5554,10 @@ does not exist,  is a no-op.
 
 
 Manipulating complex numbers
+
+
+[We don't support generic arguments for these built-ins for Go 1.18.]
+
 
 
 Three functions assemble and disassemble complex numbers.
@@ -4543,7 +5575,8 @@ imag(complexT) floatT
 
 The type of the arguments and return value correspond.
 For , the two arguments must be of the same
-floating-point type and the return type is the complex type
+floating-point type and the return type is the
+complex type
 with the corresponding floating-point constituents:
  for  arguments, and
  for  arguments.
@@ -5099,8 +6132,14 @@ alignment of the (type of the) variable in bytes.  For a variable
 
 
 
-Calls to , , and
- are compile-time constant expressions of type .
+A (variable of) type  has variable size if 
+is a type parameter, or if it is an array or struct type containing elements
+or fields of variable size. Otherwise the size is constant.
+Calls to , , and 
+are compile-time constant expressions of
+type  if their arguments (or the struct  in
+the selector expression  for ) are types
+of constant size.
 
 
 
@@ -5168,6 +6207,9 @@ For a variable  of array type:  is the same as
 
 
 A struct or array type has size zero if it contains no fields (or elements, respectively) that have a size greater than zero. Two distinct zero-size variables may have the same address in memory.
+
+
+
 
 
 
