@@ -8,7 +8,7 @@ The format, file names and contents of data are experimental and maybe be change
 
 ## How to contribute to the dictionary data
 
-Please edit the dictionary file [docs/dic.ja.js](docs/dic.ja.js)
+Please edit the dictionary file [docs/dic.ja.json](docs/dic.ja.json)
 
 # LICENSE
 
