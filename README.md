@@ -18,10 +18,11 @@ $ make
 $ ./preview
 ```
 
-
 # Other Analyzed data
 
 This repository contains analyzed data of Go Language Specification.
+
+Please take a look at [docs/](docs/) directory if you are interested.
 
 Their format, file names and contents are experimental and maybe be changed at anytime.
 
