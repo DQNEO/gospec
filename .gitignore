@@ -1,1 +1,3 @@
 *.log
+/spec_orig.html
+/spec_noscript.html
